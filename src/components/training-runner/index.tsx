@@ -13,11 +13,12 @@ export const TrainingRunner = () => {
   const [timesIndex, setTimesIndex] = useState(0);
   const times = useMemo(() => buildTimesArray(training), [training]);
   const {
-    controls: { pause, resume, setTime },
+    controls: { start, pause, resume, setTime },
     value,
   } = useTimer({
     direction: "backward",
     initialTime: times[timesIndex],
+    startImmediately: false,
   });
 
   const { m, s } = value;
@@ -31,6 +32,7 @@ export const TrainingRunner = () => {
 
   return (
     <>
+      <button onClick={start}>Start</button>
       <button onClick={resume}>Resume</button>
       <button onClick={pause}>Pause</button>
       <h1>
