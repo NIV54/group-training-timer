@@ -33,8 +33,8 @@ export const TrainingRunner = () => {
   return (
     <>
       <button onClick={start}>Start</button>
-      <button onClick={resume}>Resume</button>
       <button onClick={pause}>Pause</button>
+      <button onClick={resume}>Resume</button>
       <h1>
         {formatTimeUnit(m)}:{formatTimeUnit(s)}
       </h1>

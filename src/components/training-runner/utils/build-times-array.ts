@@ -6,7 +6,7 @@ export const buildTimesArray = ({
   breakTime,
   rounds,
 }: TrainingFormInput) =>
-  [...Array(rounds)]
+  [...Array(+rounds)]
     .map(() => [convertTime(workTime), convertTime(breakTime)])
     .flat()
     .slice(0, -1);

@@ -8,5 +8,5 @@ export type RoundStrings = {
 };
 
 export type TrainingFormInput = RoundStrings & {
-  rounds: number;
+  rounds: string;
 };

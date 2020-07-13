@@ -3,9 +3,9 @@ import { TrainingFormInput } from "./types";
 
 const trainingSlice = createSlice({
   initialState: {
-    workTime: "00:05",
-    breakTime: "00:03",
-    rounds: 3,
+    workTime: "00:00",
+    breakTime: "00:00",
+    rounds: "0",
   },
   name: "training",
   reducers: {

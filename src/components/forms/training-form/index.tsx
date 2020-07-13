@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
 import { useDispatch } from "react-redux";
+import TimeField from "react-simple-timefield";
+
 import { TrainingFormInput } from "../../../store/training/types";
 import { setTraining } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
@@ -21,19 +22,29 @@ export const TrainingForm = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="workTime">Work Time</label>
-        <input
-          name="workTime"
-          type="time"
-          placeholder="work time"
-          ref={register}
+        <TimeField
+          input={
+            <input
+              name="workTime"
+              type="text"
+              placeholder="work time"
+              ref={register}
+            />
+          }
         />
+
         <label htmlFor="breakTime">Break Time</label>
-        <input
-          name="breakTime"
-          type="time"
-          placeholder="break time"
-          ref={register}
+        <TimeField
+          input={
+            <input
+              name="breakTime"
+              type="text"
+              placeholder="break time"
+              ref={register}
+            />
+          }
         />
+
         <label htmlFor="rounds">Rounds</label>
         <input
           name="rounds"
