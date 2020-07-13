@@ -12,6 +12,7 @@ export const TrainingForm = () => {
   const onSubmit = (values: TrainingFormInput) => {
     dispatch(setTraining(values));
   };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
