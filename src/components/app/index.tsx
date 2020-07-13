@@ -1,7 +1,8 @@
 import React from "react";
+import { TrainingForm } from "../forms/training-form";
 
 function App() {
-  return <h1>hello</h1>;
+  return <TrainingForm />;
 }
 
 export default App;
