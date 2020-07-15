@@ -19,41 +19,58 @@ export const TrainingForm = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="workTime">Work Time</label>
-        <TimeField
-          input={
+        <div className="form-row">
+          <div className="form-group col-6">
+            <label htmlFor="workTime">Work Time</label>
+            <TimeField
+              input={
+                <input
+                  name="workTime"
+                  type="text"
+                  className="form-control"
+                  placeholder="work time"
+                  ref={register}
+                />
+              }
+            />
+          </div>
+
+          <div className="form-group col-6">
+            <label htmlFor="breakTime">Break Time</label>
+            <TimeField
+              input={
+                <input
+                  name="breakTime"
+                  type="text"
+                  className="form-control"
+                  placeholder="break time"
+                  ref={register}
+                />
+              }
+            />
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group w-25">
+            <label htmlFor="rounds">Rounds</label>
             <input
-              name="workTime"
-              type="text"
-              placeholder="work time"
+              name="rounds"
+              type="number"
+              className="form-control"
+              placeholder="rounds"
               ref={register}
             />
-          }
-        />
-
-        <label htmlFor="breakTime">Break Time</label>
-        <TimeField
-          input={
-            <input
-              name="breakTime"
-              type="text"
-              placeholder="break time"
-              ref={register}
-            />
-          }
-        />
-
-        <label htmlFor="rounds">Rounds</label>
-        <input
-          name="rounds"
-          type="number"
-          placeholder="rounds"
-          ref={register}
-        />
-        <input type="submit" />
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <button type="submit" className="btn btn-primary col-4">
+            Submit
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 };
