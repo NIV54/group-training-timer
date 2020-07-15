@@ -5,6 +5,8 @@ import { TrainingFormInput } from "../../store/training/types";
 import { buildTimesArray } from "./utils/build-times-array";
 import { useTimer } from "react-compound-timer";
 import { formatTimeUnit } from "./utils/format-time-unit";
+import { useAudio } from "../../hooks/use-audio";
+const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
   const training = useSelector<State, TrainingFormInput>(
@@ -20,15 +22,25 @@ export const TrainingRunner = () => {
     initialTime: times[timesIndex],
     startImmediately: false,
   });
+  const { toggle } = useAudio(ringBell);
 
   const { m, s } = value;
 
   useEffect(() => {
-    if (timesIndex < times.length - 1 && m === 0 && s === 0) {
-      setTime(times[timesIndex + 1]);
+    if (m === 0 && s === 0) {
       setTimesIndex(timesIndex => timesIndex + 1);
     }
-  }, [timesIndex, setTime, times, m, s]);
+  }, [m, s]);
+
+  useEffect(() => {
+    if (timesIndex < times.length) {
+      setTime(times[timesIndex]);
+    }
+    if (timesIndex > 0) {
+      toggle();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timesIndex]);
 
   return (
     <>
