@@ -6,6 +6,7 @@ import { buildTimesArray } from "./utils/build-times-array";
 import { useTimer } from "react-compound-timer";
 import { formatTimeUnit } from "./utils/format-time-unit";
 import { useAudio } from "../../hooks/use-audio";
+import "./training-runner.scss";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
@@ -16,11 +17,11 @@ export const TrainingRunner = () => {
   const times = useMemo(() => buildTimesArray(training), [training]);
   const {
     controls: { start, pause, resume, setTime },
-    value,
+    value
   } = useTimer({
     direction: "backward",
     initialTime: times[timesIndex],
-    startImmediately: false,
+    startImmediately: false
   });
   const { toggle } = useAudio(ringBell);
 
@@ -43,13 +44,37 @@ export const TrainingRunner = () => {
   }, [timesIndex]);
 
   return (
-    <>
-      <button onClick={start}>Start</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={resume}>Resume</button>
-      <h1>
-        {formatTimeUnit(m)}:{formatTimeUnit(s)}
-      </h1>
-    </>
+    <div className="container">
+      <div className="row h-100">
+        <div className="col-12 d-flex justify-content-center align-items-end">
+          <button
+            className="btn btn-info margin-side"
+            type="button"
+            onClick={start}
+          >
+            Start
+          </button>
+          <button
+            className="btn btn-info margin-side"
+            type="button"
+            onClick={pause}
+          >
+            Pause
+          </button>
+          <button
+            className="btn btn-info margin-side"
+            type="button"
+            onClick={resume}
+          >
+            Resume
+          </button>
+        </div>
+        <div className="col-12 d-flex justify-content-center align-items-start">
+          <h1>
+            {formatTimeUnit(m)}:{formatTimeUnit(s)}
+          </h1>
+        </div>
+      </div>
+    </div>
   );
 };
