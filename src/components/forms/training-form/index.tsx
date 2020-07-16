@@ -40,7 +40,7 @@ export const TrainingForm = () => {
                   input={
                     <input
                       name={`${workTimeFormName}${index}`}
-                      type="text"
+                      type="number"
                       className="form-control"
                       placeholder="work time"
                       ref={register()}
@@ -55,7 +55,7 @@ export const TrainingForm = () => {
                     input={
                       <input
                         name={`${breakTimeFormName}${index}`}
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="break time"
                         ref={register()}
@@ -70,7 +70,7 @@ export const TrainingForm = () => {
             append
           </button>
           <div className="row justify-content-center">
-            <button type="submit" className="btn btn-primary col-4">
+            <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </div>
