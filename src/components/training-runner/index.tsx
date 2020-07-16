@@ -7,6 +7,8 @@ import { useTimer } from "react-compound-timer";
 import { formatTimeUnit } from "./utils/format-time-unit";
 import { useAudio } from "../../hooks/use-audio";
 import "./training-runner.scss";
+import { Button } from "../utils/ui/render-buttons/button.type";
+import { renderButtons } from "../utils/ui/render-buttons/render-buttons";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
@@ -23,7 +25,7 @@ export const TrainingRunner = () => {
   });
   const { toggle } = useAudio(ringBell);
 
-  const buttons: [string, () => void][] = [
+  const buttons: Button[] = [
     ["Start", start],
     ["Pause", pause],
     ["Resume", resume]
@@ -53,17 +55,7 @@ export const TrainingRunner = () => {
         <div className="col-12">
           <h1>Round {Math.floor(timesIndex / 2) + 1}</h1>
         </div>
-        <div className="col-12">
-          {buttons.map(([text, onClick]) => (
-            <button
-              className="btn btn-info margin-side"
-              type="button"
-              onClick={onClick}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
+        <div className="col-12">{renderButtons(buttons)}</div>
         <div className="col-12">
           <h1 className={`${timesIndex % 2 === 0 ? "work" : "break"}`}>
             {formatTimeUnit(m)}:{formatTimeUnit(s)}

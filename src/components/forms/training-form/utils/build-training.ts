@@ -1,17 +1,11 @@
-import {
-  TrainingFormInput,
-  Round,
-  Training
-} from "../../../../store/training/types";
+import { Training } from "../../../../store/training/types";
 import { convertTime } from "./convert-time";
+import { TrainingFormInput } from "../types";
 
-export const buildTraining = (trainingInput: TrainingFormInput): Training => {
-  const entries = Object.entries(trainingInput);
-  let training: Partial<Round>[] = [
-    ...Array((entries.length + 1) / 2)
-  ].map(() => ({}));
-  entries.forEach(([key, value]) => {
-    training[key.slice(-1)][key.slice(0, -1)] = convertTime(value);
-  });
-  return training as Training;
-};
+export const buildTraining = ({
+  TrainingForm: trainingInput
+}: TrainingFormInput): Training =>
+  trainingInput.map(({ workTime = "00:00", breakTime = "00:00" }) => ({
+    workTime: convertTime(workTime),
+    breakTime: convertTime(breakTime)
+  }));

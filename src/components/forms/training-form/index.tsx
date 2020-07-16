@@ -3,25 +3,37 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import TimeField from "react-simple-timefield";
 
-import { TrainingFormInput } from "../../../store/training/types";
 import { setTraining } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
 import { TRAINING } from "../../app/routes";
-import { breakTimeFormName, workTimeFormName } from "./constants";
+import {
+  breakTimeFormName,
+  workTimeFormName,
+  fieldArrayName
+} from "./constants";
 import { buildTraining } from "./utils/build-training";
+import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
+import { Button } from "../../utils/ui/render-buttons/button.type";
+import { TrainingFormInput } from "./types";
 
 export const TrainingForm = () => {
   const { register, handleSubmit, control } = useForm<TrainingFormInput>();
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
-    name: "training-form"
+    name: fieldArrayName
   });
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const appendInput = () => append({ name: "training-form" });
+  const appendInput = () => append({ name: `x${fields.length}` });
+  const removeInput = () => remove(fields.length - 1);
 
   useEffect(appendInput, [append]);
+
+  const buttons: Button[] = [
+    ["append", appendInput],
+    ["remove", removeInput]
+  ];
 
   const onSubmit = (values: TrainingFormInput) => {
     dispatch(setTraining(buildTraining(values)));
@@ -30,7 +42,7 @@ export const TrainingForm = () => {
 
   return (
     <div className="container">
-      <div className="row h-100 w-50 justify-content-center align-items-center offset-3">
+      <div className="row h-100 col-10 justify-content-center align-items-center offset-1">
         <form className="col-12" onSubmit={handleSubmit(onSubmit)}>
           {fields.map((field, index) => (
             <div className="form-row" key={field.id}>
@@ -39,8 +51,8 @@ export const TrainingForm = () => {
                 <TimeField
                   input={
                     <input
-                      name={`${workTimeFormName}${index}`}
-                      type="number"
+                      name={`${fieldArrayName}[${index}].${workTimeFormName}`}
+                      type="text"
                       className="form-control"
                       placeholder="work time"
                       ref={register()}
@@ -54,8 +66,8 @@ export const TrainingForm = () => {
                   <TimeField
                     input={
                       <input
-                        name={`${breakTimeFormName}${index}`}
-                        type="number"
+                        name={`${fieldArrayName}[${index}].${breakTimeFormName}`}
+                        type="text"
                         className="form-control"
                         placeholder="break time"
                         ref={register()}
@@ -66,11 +78,9 @@ export const TrainingForm = () => {
               )}
             </div>
           ))}
-          <button type="button" className="btn btn-info" onClick={appendInput}>
-            append
-          </button>
+          {renderButtons(buttons)}
           <div className="row justify-content-center">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary mt-3">
               Submit
             </button>
           </div>

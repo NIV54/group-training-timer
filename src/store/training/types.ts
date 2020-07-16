@@ -4,5 +4,3 @@ export interface Round {
 }
 
 export type Training = Round[];
-
-export type TrainingFormInput = Record<string, string>;
