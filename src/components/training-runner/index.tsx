@@ -23,6 +23,12 @@ export const TrainingRunner = () => {
   });
   const { toggle } = useAudio(ringBell);
 
+  const buttons: [string, () => void][] = [
+    ["Start", start],
+    ["Pause", pause],
+    ["Resume", resume]
+  ];
+
   const { m, s } = value;
 
   useEffect(() => {
@@ -42,33 +48,24 @@ export const TrainingRunner = () => {
   }, [timesIndex]);
 
   return (
-    <div className="container">
-      <div className="row h-100">
-        <div className="col-12 d-flex justify-content-center align-items-end">
-          <button
-            className="btn btn-info margin-side"
-            type="button"
-            onClick={start}
-          >
-            Start
-          </button>
-          <button
-            className="btn btn-info margin-side"
-            type="button"
-            onClick={pause}
-          >
-            Pause
-          </button>
-          <button
-            className="btn btn-info margin-side"
-            type="button"
-            onClick={resume}
-          >
-            Resume
-          </button>
+    <div className="container d-flex align-items-center justify-content-center">
+      <div className="row text-center">
+        <div className="col-12">
+          <h1>Round {Math.floor(timesIndex / 2) + 1}</h1>
         </div>
-        <div className="col-12 d-flex justify-content-center align-items-start">
-          <h1>
+        <div className="col-12">
+          {buttons.map(([text, onClick]) => (
+            <button
+              className="btn btn-info margin-side"
+              type="button"
+              onClick={onClick}
+            >
+              {text}
+            </button>
+          ))}
+        </div>
+        <div className="col-12">
+          <h1 className={`${timesIndex % 2 === 0 ? "work" : "break"}`}>
             {formatTimeUnit(m)}:{formatTimeUnit(s)}
           </h1>
         </div>

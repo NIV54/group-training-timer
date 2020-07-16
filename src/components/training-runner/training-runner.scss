@@ -1,3 +1,11 @@
+$colors: "work" green, "break" red;
+
+@each $i in $colors {
+  .#{nth($i, 1)} {
+    color: nth($i, 2);
+  }
+}
+
 .margin-side {
   margin: 0 4px;
 }
