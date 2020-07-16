@@ -78,7 +78,9 @@ export const TrainingForm = () => {
               )}
             </div>
           ))}
-          {renderButtons(buttons)}
+          <div className="row justify-content-center">
+            {renderButtons(buttons)}
+          </div>
           <div className="row justify-content-center">
             <button type="submit" className="btn btn-primary mt-3">
               Submit
