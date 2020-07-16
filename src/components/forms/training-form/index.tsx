@@ -30,7 +30,7 @@ export const TrainingForm = () => {
         <form className="col-12" onSubmit={handleSubmit(onSubmit)}>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-info"
             onClick={() => append({ name: "training-form" })}
           >
             append
@@ -51,21 +51,22 @@ export const TrainingForm = () => {
                   }
                 />
               </div>
-
-              <div className="form-group col-6">
-                <label htmlFor={`${breakTimeFormName}`}>Break Time</label>
-                <TimeField
-                  input={
-                    <input
-                      name={`${breakTimeFormName}${index}`}
-                      type="text"
-                      className="form-control"
-                      placeholder="break time"
-                      ref={register()}
-                    />
-                  }
-                />
-              </div>
+              {index < fields.length - 1 && (
+                <div className="form-group col-6">
+                  <label htmlFor={`${breakTimeFormName}`}>Break Time</label>
+                  <TimeField
+                    input={
+                      <input
+                        name={`${breakTimeFormName}${index}`}
+                        type="text"
+                        className="form-control"
+                        placeholder="break time"
+                        ref={register()}
+                      />
+                    }
+                  />
+                </div>
+              )}
             </div>
           ))}
           <div className="row justify-content-center">
