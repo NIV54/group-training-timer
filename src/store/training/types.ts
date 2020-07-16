@@ -3,10 +3,6 @@ export interface Round {
   breakTime: number;
 }
 
-export type RoundStrings = {
-  [T in keyof Round]: string;
-};
+export type Training = Round[];
 
-export type TrainingFormInput = RoundStrings & {
-  rounds: string;
-};
+export type TrainingFormInput = Record<string, string>;

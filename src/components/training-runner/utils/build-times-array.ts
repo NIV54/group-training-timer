@@ -1,12 +1,7 @@
-import { TrainingFormInput } from "../../../store/training/types";
-import { convertTime } from "../../forms/training-form/utils/convert-time";
+import { Training } from "../../../store/training/types";
 
-export const buildTimesArray = ({
-  workTime,
-  breakTime,
-  rounds,
-}: TrainingFormInput) =>
-  [...Array(+rounds)]
-    .map(() => [convertTime(workTime), convertTime(breakTime)])
+export const buildTimesArray = (training: Training) =>
+  training
+    .map(({ workTime, breakTime }) => [workTime, breakTime])
     .flat()
     .slice(0, -1);

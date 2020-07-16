@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import TimeField from "react-simple-timefield";
 
@@ -7,14 +7,20 @@ import { TrainingFormInput } from "../../../store/training/types";
 import { setTraining } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
 import { TRAINING } from "../../app/routes";
+import { breakTimeFormName, workTimeFormName } from "./constants";
+import { buildTraining } from "./utils/build-training";
 
 export const TrainingForm = () => {
-  const { register, handleSubmit } = useForm<TrainingFormInput>();
+  const { register, handleSubmit, control } = useForm<TrainingFormInput>();
+  const { fields, append } = useFieldArray({
+    control,
+    name: "training-form"
+  });
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = (values: TrainingFormInput) => {
-    dispatch(setTraining(values));
+    dispatch(setTraining(buildTraining(values)));
     history.replace(TRAINING);
   };
 
@@ -22,50 +28,46 @@ export const TrainingForm = () => {
     <div className="container">
       <div className="row h-100 justify-content-center align-items-center">
         <form className="col-12" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-row">
-            <div className="form-group col-6">
-              <label htmlFor="workTime">Work Time</label>
-              <TimeField
-                input={
-                  <input
-                    name="workTime"
-                    type="text"
-                    className="form-control"
-                    placeholder="work time"
-                    ref={register}
-                  />
-                }
-              />
-            </div>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => append({ name: "training-form" })}
+          >
+            append
+          </button>
+          {fields.map((field, index) => (
+            <div className="form-row" key={field.id}>
+              <div className="form-group col-6">
+                <label htmlFor={`${workTimeFormName}`}>Work Time</label>
+                <TimeField
+                  input={
+                    <input
+                      name={`${workTimeFormName}${index}`}
+                      type="text"
+                      className="form-control"
+                      placeholder="work time"
+                      ref={register()}
+                    />
+                  }
+                />
+              </div>
 
-            <div className="form-group col-6">
-              <label htmlFor="breakTime">Break Time</label>
-              <TimeField
-                input={
-                  <input
-                    name="breakTime"
-                    type="text"
-                    className="form-control"
-                    placeholder="break time"
-                    ref={register}
-                  />
-                }
-              />
+              <div className="form-group col-6">
+                <label htmlFor={`${breakTimeFormName}`}>Break Time</label>
+                <TimeField
+                  input={
+                    <input
+                      name={`${breakTimeFormName}${index}`}
+                      type="text"
+                      className="form-control"
+                      placeholder="break time"
+                      ref={register()}
+                    />
+                  }
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group w-25">
-              <label htmlFor="rounds">Rounds</label>
-              <input
-                name="rounds"
-                type="number"
-                className="form-control"
-                placeholder="rounds"
-                ref={register}
-              />
-            </div>
-          </div>
+          ))}
           <div className="row justify-content-center">
             <button type="submit" className="btn btn-primary col-4">
               Submit

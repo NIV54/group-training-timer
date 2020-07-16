@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../../store";
-import { TrainingFormInput } from "../../store/training/types";
+import { Training } from "../../store/training/types";
 import { buildTimesArray } from "./utils/build-times-array";
 import { useTimer } from "react-compound-timer";
 import { formatTimeUnit } from "./utils/format-time-unit";
@@ -10,9 +10,7 @@ import "./training-runner.scss";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
-  const training = useSelector<State, TrainingFormInput>(
-    state => state.training
-  );
+  const training = useSelector<State, Training>(state => state.training);
   const [timesIndex, setTimesIndex] = useState(0);
   const times = useMemo(() => buildTimesArray(training), [training]);
   const {
