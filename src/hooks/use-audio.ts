@@ -13,6 +13,7 @@ export const useAudio = (url: string) => {
   useEffect(() => {
     audio.current.addEventListener("ended", () => setPlaying(false));
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       audio.current.removeEventListener("ended", () => setPlaying(false));
     };
   }, [audio]);

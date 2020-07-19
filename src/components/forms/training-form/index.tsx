@@ -43,7 +43,7 @@ export const TrainingForm = () => {
   ];
 
   const onSubmit = (values: TrainingFormInput) => {
-    dispatch(setTraining(buildTraining(values)));
+    dispatch(setTraining(buildTraining(values.TrainingForm)));
     history.replace(TRAINING);
   };
 

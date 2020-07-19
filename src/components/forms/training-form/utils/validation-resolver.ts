@@ -3,10 +3,8 @@ import { TrainingFormInput } from "../types";
 
 export const validationResolver: (
   errorMessage: string
-) => Resolver<TrainingFormInput> = errorMessage => async ({
-  TrainingForm: values
-}) => {
-  const noError = values.every(value =>
+) => Resolver<TrainingFormInput> = errorMessage => async values => {
+  const noError = values.TrainingForm.every(value =>
     Object.values(value).every(innerValue => innerValue !== "00:00")
   );
   return {
