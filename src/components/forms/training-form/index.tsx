@@ -12,11 +12,11 @@ import {
   fieldArrayName,
   errorMessage
 } from "./constants";
-import { buildTraining } from "./utils/build-training";
+import { buildTraining } from "../utils/build-training";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
 import { TrainingFormInput } from "./types";
-import { validationResolver } from "./utils/validation-resolver";
+import { validationResolver } from "../utils/validation-resolver";
 
 export const TrainingForm = () => {
   const { register, handleSubmit, control, errors } = useForm<

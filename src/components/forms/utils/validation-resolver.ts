@@ -1,5 +1,5 @@
 import { Resolver } from "react-hook-form";
-import { TrainingFormInput } from "../types";
+import { TrainingFormInput } from "../training-form/types";
 
 export const validationResolver: (
   errorMessage: string
