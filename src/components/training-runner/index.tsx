@@ -43,11 +43,12 @@ export const TrainingRunner = () => {
 
   const getRound = () => {
     const round = Math.floor(timesIndex / 2) + 1;
-    if (round === Math.floor(times.length / 2) + 1) {
+    const totalRounds = Math.floor(times.length / 2) + 1;
+    if (round === totalRounds) {
       return "Last Round";
     }
 
-    return `Round ${round}`;
+    return `Round ${round} / ${totalRounds}`;
   };
 
   return (
