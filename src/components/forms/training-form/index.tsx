@@ -9,15 +9,22 @@ import { TRAINING } from "../../app/routes";
 import {
   breakTimeFormName,
   workTimeFormName,
-  fieldArrayName
+  fieldArrayName,
+  errorMessage
 } from "./constants";
 import { buildTraining } from "./utils/build-training";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
 import { TrainingFormInput } from "./types";
+import { validationResolver } from "./utils/validation-resolver";
 
 export const TrainingForm = () => {
-  const { register, handleSubmit, control } = useForm<TrainingFormInput>();
+  const { register, handleSubmit, control, errors } = useForm<
+    TrainingFormInput
+  >({
+    reValidateMode: "onSubmit",
+    resolver: validationResolver(errorMessage)
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: fieldArrayName
@@ -55,7 +62,7 @@ export const TrainingForm = () => {
                       type="text"
                       className="form-control"
                       placeholder="work time"
-                      ref={register()}
+                      ref={register({ required: true })}
                     />
                   }
                 />
@@ -70,7 +77,7 @@ export const TrainingForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="break time"
-                        ref={register()}
+                        ref={register({ required: true })}
                       />
                     }
                   />
@@ -80,6 +87,11 @@ export const TrainingForm = () => {
           ))}
           <div className="row justify-content-center">
             {renderButtons(buttons)}
+          </div>
+          <div className="row justify-content-center">
+            {errors.TrainingForm &&
+              errors.TrainingForm[0]?.workTime &&
+              errors.TrainingForm[0]?.workTime.message}
           </div>
           <div className="row justify-content-center">
             <button type="submit" className="btn btn-primary mt-3">
