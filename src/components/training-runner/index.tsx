@@ -4,11 +4,12 @@ import { State } from "../../store";
 import { Training } from "../../store/training/types";
 import { buildTimesArray } from "./utils/build-times-array";
 import { useTimer } from "react-compound-timer";
-import { formatTimeUnit } from "./utils/format-time-unit";
+import { formatTimeUnit } from "../utils/timer/format-time-unit";
 import { useAudio } from "../../hooks/use-audio";
 import "./training-runner.scss";
 import { Button } from "../utils/ui/render-buttons/button.type";
 import { renderButtons } from "../utils/ui/render-buttons/render-buttons";
+import { useTimeout } from "../../hooks/use-timeout";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
@@ -24,21 +25,7 @@ export const TrainingRunner = () => {
     startImmediately: false
   });
   const { toggle } = useAudio(ringBell);
-
-  const buttons: Button[] = [
-    ["Start", start],
-    ["Pause", pause],
-    ["Resume", resume]
-  ];
-
-  const { m, s } = value;
-
-  useEffect(() => {
-    if (m === 0 && s === 0) {
-      setTimesIndex(timesIndex => timesIndex + 1);
-    }
-  }, [m, s]);
-
+  useTimeout(value, () => setTimesIndex(timesIndex => timesIndex + 1));
   useEffect(() => {
     if (timesIndex < times.length) {
       setTime(times[timesIndex]);
@@ -49,6 +36,12 @@ export const TrainingRunner = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timesIndex]);
 
+  const buttons: Button[] = [
+    ["Start", start],
+    ["Pause", pause],
+    ["Resume", resume]
+  ];
+
   return (
     <div className="container d-flex align-items-center justify-content-center">
       <div className="row text-center">
@@ -58,7 +51,7 @@ export const TrainingRunner = () => {
         <div className="col-12">{renderButtons(buttons)}</div>
         <div className="col-12">
           <h1 className={`${timesIndex % 2 === 0 ? "work" : "break"}`}>
-            {formatTimeUnit(m)}:{formatTimeUnit(s)}
+            {formatTimeUnit(value.m)}:{formatTimeUnit(value.s)}
           </h1>
         </div>
       </div>
