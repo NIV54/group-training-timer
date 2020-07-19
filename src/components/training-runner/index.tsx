@@ -40,11 +40,20 @@ export const TrainingRunner = () => {
     ["Resume", resume]
   ];
 
+  const getRound = () => {
+    const round = Math.floor(timesIndex / 2) + 1;
+    if (round === Math.floor(times.length / 2) + 1) {
+      return "Last Round";
+    }
+
+    return `Round ${round}`;
+  };
+
   return (
     <div className="container d-flex align-items-center justify-content-center">
       <div className="row text-center">
         <div className="col-12">
-          <h1>Round {Math.floor(timesIndex / 2) + 1}</h1>
+          <h1>{getRound()}</h1>
         </div>
         <div className="col-12">{renderButtons(buttons)}</div>
         <div className="col-12">
