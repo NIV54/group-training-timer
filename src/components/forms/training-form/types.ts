@@ -9,5 +9,5 @@ export type TrainingFormOutput = Partial<RoundStrings>[];
 
 export type TrainingFormInput = {
   [fieldArrayName]: TrainingFormOutput;
-  loading: string;
+  initialTime: string;
 };

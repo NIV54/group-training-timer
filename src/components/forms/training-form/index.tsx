@@ -3,9 +3,9 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import TimeField from "react-simple-timefield";
 
-import { setTraining } from "../../../store/training/slice";
+import { setTraining, setInitialTime } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
-import { TRAINING } from "../../app/routes";
+import { INITIAL_TIME } from "../../app/routes";
 import {
   breakTimeInputName,
   workTimeInputName,
@@ -18,6 +18,7 @@ import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
 import { TrainingFormInput } from "./types";
 import { validationResolver } from "../utils/validation-resolver";
+import { convertTime } from "../utils/convert-time";
 
 export const TrainingForm = () => {
   const { register, handleSubmit, control, errors } = useForm<
@@ -33,7 +34,8 @@ export const TrainingForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const appendInput = () => append({ name: `x${fields.length}` });
+  const appendInput = () =>
+    append({ name: `${fieldArrayName}${fields.length}` });
   const removeInput = () => remove(fields.length - 1);
 
   useEffect(appendInput, [append]);
@@ -45,7 +47,8 @@ export const TrainingForm = () => {
 
   const onSubmit = (values: TrainingFormInput) => {
     dispatch(setTraining(buildTraining(values.TrainingForm)));
-    history.replace(TRAINING);
+    dispatch(setInitialTime(convertTime(values.initialTime)));
+    history.replace(INITIAL_TIME);
   };
 
   return (

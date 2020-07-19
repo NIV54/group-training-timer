@@ -13,16 +13,15 @@ import { useTimeout } from "../../hooks/use-timeout";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
-  const training = useSelector<State, Training>(state => state.training);
+  const training = useSelector<State, Training>(state => state.training.rounds);
   const [timesIndex, setTimesIndex] = useState(0);
   const times = useMemo(() => buildTimesArray(training), [training]);
   const {
-    controls: { start, pause, resume, setTime },
+    controls: { pause, resume, setTime },
     value
   } = useTimer({
     direction: "backward",
-    initialTime: times[timesIndex],
-    startImmediately: false
+    initialTime: times[timesIndex]
   });
   const { toggle } = useAudio(ringBell);
   useTimeout(value, () => setTimesIndex(timesIndex => timesIndex + 1));
@@ -37,7 +36,6 @@ export const TrainingRunner = () => {
   }, [timesIndex]);
 
   const buttons: Button[] = [
-    ["Start", start],
     ["Pause", pause],
     ["Resume", resume]
   ];

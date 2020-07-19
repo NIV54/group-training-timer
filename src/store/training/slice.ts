@@ -2,14 +2,24 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Training } from "./types";
 
 const trainingSlice = createSlice({
-  initialState: [] as Training,
+  initialState: {
+    rounds: [] as Training,
+    initialTime: 0
+  },
   name: "training",
   reducers: {
-    setTraining: (state, action: PayloadAction<Training>) => [...action.payload]
+    setTraining: (state, action: PayloadAction<Training>) => ({
+      ...state,
+      rounds: [...action.payload]
+    }),
+    setInitialTime: (state, action: PayloadAction<number>) => ({
+      ...state,
+      initialTime: action.payload
+    })
   }
 });
 
 export const {
   reducer: trainingReducer,
-  actions: { setTraining }
+  actions: { setTraining, setInitialTime }
 } = trainingSlice;
