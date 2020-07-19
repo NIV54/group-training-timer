@@ -71,21 +71,19 @@ export const TrainingForm = () => {
                 />
               </div>
               <div className="form-group col-6">
-                {index < fields.length - 1 && (
-                  <>
-                    <label htmlFor={`${breakTimeInputName}`}>Break Time</label>
-                    <TimeField
-                      input={
-                        <input
-                          name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
-                          type="text"
-                          className="form-control"
-                          ref={register()}
-                        />
-                      }
-                    />
-                  </>
-                )}
+                <>
+                  <label htmlFor={`${breakTimeInputName}`}>Break Time</label>
+                  <TimeField
+                    input={
+                      <input
+                        name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
+                        type="text"
+                        className="form-control"
+                        ref={register()}
+                      />
+                    }
+                  />
+                </>
               </div>
             </div>
           ))}
