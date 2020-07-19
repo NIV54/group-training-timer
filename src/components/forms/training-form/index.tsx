@@ -88,11 +88,11 @@ export const TrainingForm = () => {
           <div className="row justify-content-center">
             {renderButtons(buttons)}
           </div>
-          <div className="row justify-content-center">
-            {errors.TrainingForm &&
-              errors.TrainingForm[0]?.workTime &&
-              errors.TrainingForm[0]?.workTime.message}
-          </div>
+          {errors.TrainingForm && errors.TrainingForm[0]?.workTime && (
+            <div className="alert alert-danger mt-2" role="alert">
+              {errors.TrainingForm[0]?.workTime.message}
+            </div>
+          )}
           <div className="row justify-content-center">
             <button type="submit" className="btn btn-primary mt-3">
               Submit
