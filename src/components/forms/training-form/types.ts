@@ -7,4 +7,7 @@ type RoundStrings = {
 
 export type TrainingFormOutput = Partial<RoundStrings>[];
 
-export type TrainingFormInput = { [fieldArrayName]: TrainingFormOutput };
+export type TrainingFormInput = {
+  [fieldArrayName]: TrainingFormOutput;
+  loading: string;
+};

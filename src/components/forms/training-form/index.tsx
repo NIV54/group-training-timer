@@ -7,12 +7,13 @@ import { setTraining } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
 import { TRAINING } from "../../app/routes";
 import {
-  breakTimeFormName,
-  workTimeFormName,
+  breakTimeInputName,
+  workTimeInputName,
   fieldArrayName,
-  errorMessage
+  errorMessage,
+  initialTimeInputName
 } from "./constants";
-import { buildTraining } from "../utils/build-training";
+import { buildTraining } from "./utils/build-training";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
 import { TrainingFormInput } from "./types";
@@ -54,43 +55,59 @@ export const TrainingForm = () => {
           {fields.map((field, index) => (
             <div className="form-row" key={field.id}>
               <div className="form-group col-6">
-                <label htmlFor={`${workTimeFormName}`}>Work Time</label>
+                <label htmlFor={`${workTimeInputName}`}>Work Time</label>
                 <TimeField
                   input={
                     <input
-                      name={`${fieldArrayName}[${index}].${workTimeFormName}`}
+                      name={`${fieldArrayName}[${index}].${workTimeInputName}`}
                       type="text"
                       className="form-control"
-                      placeholder="work time"
-                      ref={register({ required: true })}
+                      ref={register()}
                     />
                   }
                 />
               </div>
-              {index < fields.length - 1 && (
-                <div className="form-group col-6">
-                  <label htmlFor={`${breakTimeFormName}`}>Break Time</label>
-                  <TimeField
-                    input={
-                      <input
-                        name={`${fieldArrayName}[${index}].${breakTimeFormName}`}
-                        type="text"
-                        className="form-control"
-                        placeholder="break time"
-                        ref={register({ required: true })}
-                      />
-                    }
-                  />
-                </div>
-              )}
+              <div className="form-group col-6">
+                {index < fields.length - 1 && (
+                  <>
+                    <label htmlFor={`${breakTimeInputName}`}>Break Time</label>
+                    <TimeField
+                      input={
+                        <input
+                          name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
+                          type="text"
+                          className="form-control"
+                          ref={register()}
+                        />
+                      }
+                    />
+                  </>
+                )}
+              </div>
             </div>
           ))}
+          <hr />
+          <div className="form-row">
+            <div className="form-group col-6">
+              <label htmlFor={`${initialTimeInputName}`}>Loading</label>
+              <TimeField
+                input={
+                  <input
+                    name={`${initialTimeInputName}`}
+                    type="text"
+                    className="form-control"
+                    ref={register()}
+                  />
+                }
+              />
+            </div>
+          </div>
           <div className="row justify-content-center">
             {renderButtons(buttons)}
           </div>
-          {errors.TrainingForm && errors.TrainingForm[0]?.workTime && (
+          {errors.TrainingForm && (
             <div className="alert alert-danger mt-2" role="alert">
-              {errors.TrainingForm[0]?.workTime.message}
+              {errors.TrainingForm[0]?.workTime?.message}
             </div>
           )}
           <div className="row justify-content-center">
