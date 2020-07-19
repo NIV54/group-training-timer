@@ -10,6 +10,7 @@ import "./training-runner.scss";
 import { Button } from "../utils/ui/render-buttons/button.type";
 import { renderButtons } from "../utils/ui/render-buttons/render-buttons";
 import { useTimeout } from "../../hooks/use-timeout";
+import { HomeButton } from "../general/links";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
@@ -51,6 +52,7 @@ export const TrainingRunner = () => {
 
   return (
     <div className="container d-flex align-items-center justify-content-center">
+      <HomeButton />
       <div className="row text-center">
         <div className="col-12">
           <h1>{getRound()}</h1>

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { State } from "../../store";
 import { useHistory } from "react-router-dom";
 import { TRAINING } from "../app/routes";
+import { HomeButton } from "../general/links";
 
 export const InitialTimer = () => {
   const initialTime = useSelector<State, number>(
@@ -20,6 +21,7 @@ export const InitialTimer = () => {
 
   return (
     <div className="container d-flex align-items-center justify-content-center">
+      <HomeButton />
       <div className="row text-center">
         <div className="col-12">
           <h1>Loading</h1>
