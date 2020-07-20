@@ -76,6 +76,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                     <TimePicker
                       defaultValue={defaultTimeValue()}
                       format={timeFormat}
+                      inputReadOnly={true}
                     />
                   }
                   control={control}
@@ -91,6 +92,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                       <TimePicker
                         defaultValue={defaultTimeValue()}
                         format={timeFormat}
+                        inputReadOnly={true}
                       />
                     }
                     control={control}
@@ -110,6 +112,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   <TimePicker
                     defaultValue={defaultTimeValue()}
                     format={timeFormat}
+                    inputReadOnly={true}
                   />
                 }
                 control={control}
