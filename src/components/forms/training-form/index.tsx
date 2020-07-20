@@ -122,12 +122,12 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
             {renderButtons(buttons)}
           </div>
           {Object.keys(errors).length > 0 && (
-            <div className="alert alert-danger mt-2" role="alert">
+            <div className="alert alert-danger my-2" role="alert">
               {(errors as ValidationError).errorMessage}
             </div>
           )}
           <div className="row justify-content-center">
-            <button type="submit" className="btn btn-primary mt-3">
+            <button type="submit" className="btn btn-primary mt-2">
               Submit
             </button>
           </div>
