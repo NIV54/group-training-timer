@@ -1,9 +1,11 @@
 import { Training } from "../../../../store/training/types";
-import { convertTime } from "../../utils/convert-time";
 import { TrainingFormOutput } from "../types";
+import { defaultTimeValue } from "../constants";
 
 export const buildTraining = (trainingOutput: TrainingFormOutput): Training =>
-  trainingOutput.map(({ workTime = "00:00", breakTime = "00:00" }) => ({
-    workTime: convertTime(workTime),
-    breakTime: convertTime(breakTime)
-  }));
+  trainingOutput.map(
+    ({ workTime = defaultTimeValue(), breakTime = defaultTimeValue() }) => ({
+      workTime: workTime.valueOf(),
+      breakTime: breakTime.valueOf()
+    })
+  );

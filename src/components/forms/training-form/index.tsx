@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  Controller,
+  SubmitHandler
+} from "react-hook-form";
 import { useDispatch } from "react-redux";
-import TimeField from "react-simple-timefield";
+import { TimePicker } from "antd";
 
 import { setTraining, setInitialTime } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
@@ -11,19 +16,23 @@ import {
   workTimeInputName,
   fieldArrayName,
   errorMessage,
-  initialTimeInputName
+  initialTimeInputName,
+  defaultTimeValue
 } from "./constants";
 import { buildTraining } from "./utils/build-training";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
-import { TrainingFormInput } from "./types";
+import { TrainingFormInput, ValidationError } from "./types";
 import { validationResolver } from "../utils/validation-resolver";
-import { convertTime } from "../utils/convert-time";
 
-export const TrainingForm = () => {
-  const { register, handleSubmit, control, errors } = useForm<
-    TrainingFormInput
-  >({
+import "antd/dist/antd.css";
+
+interface TrainingFormProps {
+  timeFormat: string;
+}
+
+export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
+  const { handleSubmit, control, errors } = useForm<TrainingFormInput>({
     reValidateMode: "onSubmit",
     resolver: validationResolver(errorMessage)
   });
@@ -47,41 +56,46 @@ export const TrainingForm = () => {
 
   const onSubmit = (values: TrainingFormInput) => {
     dispatch(setTraining(buildTraining(values.TrainingForm)));
-    dispatch(setInitialTime(convertTime(values.initialTime)));
+    dispatch(
+      setInitialTime((values.initialTime || defaultTimeValue()).valueOf())
+    );
     history.replace(INITIAL_TIME);
   };
 
   return (
     <div className="container">
       <div className="row h-100 col-10 justify-content-center align-items-center offset-1">
-        <form className="col-12" onSubmit={handleSubmit(onSubmit)}>
+        {/* I don't understand why but handleSubmit won't accept submit although is has the right type (100% right)*/}
+        <form className="col-12" onSubmit={handleSubmit(onSubmit as any)}>
           {fields.map((field, index) => (
             <div className="form-row" key={field.id}>
               <div className="form-group col-6">
                 <label htmlFor={`${workTimeInputName}`}>Work Time</label>
-                <TimeField
-                  input={
-                    <input
-                      name={`${fieldArrayName}[${index}].${workTimeInputName}`}
-                      type="text"
-                      className="form-control"
-                      ref={register()}
+                <Controller
+                  as={
+                    <TimePicker
+                      defaultValue={defaultTimeValue()}
+                      format={timeFormat}
                     />
                   }
+                  control={control}
+                  name={`${fieldArrayName}[${index}].${workTimeInputName}`}
+                  className="form-control"
                 />
               </div>
               <div className="form-group col-6">
                 <>
                   <label htmlFor={`${breakTimeInputName}`}>Break Time</label>
-                  <TimeField
-                    input={
-                      <input
-                        name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
-                        type="text"
-                        className="form-control"
-                        ref={register()}
+                  <Controller
+                    as={
+                      <TimePicker
+                        defaultValue={defaultTimeValue()}
+                        format={timeFormat}
                       />
                     }
+                    control={control}
+                    name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
+                    className="form-control"
                   />
                 </>
               </div>
@@ -91,24 +105,25 @@ export const TrainingForm = () => {
           <div className="form-row">
             <div className="form-group col-6">
               <label htmlFor={`${initialTimeInputName}`}>Loading</label>
-              <TimeField
-                input={
-                  <input
-                    name={`${initialTimeInputName}`}
-                    type="text"
-                    className="form-control"
-                    ref={register()}
+              <Controller
+                as={
+                  <TimePicker
+                    defaultValue={defaultTimeValue()}
+                    format={timeFormat}
                   />
                 }
+                control={control}
+                name={`${initialTimeInputName}`}
+                className="form-control"
               />
             </div>
           </div>
           <div className="row justify-content-center">
             {renderButtons(buttons)}
           </div>
-          {errors.TrainingForm && (
+          {Object.keys(errors).length > 0 && (
             <div className="alert alert-danger mt-2" role="alert">
-              {errors.TrainingForm[0]?.workTime?.message}
+              {(errors as ValidationError).errorMessage}
             </div>
           )}
           <div className="row justify-content-center">

@@ -11,7 +11,11 @@ const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route exact path={HOME} component={TrainingForm} />
+        <Route exact path={HOME}>
+          <TrainingForm
+            timeFormat={process.env.REACT_APP_TIME_FORMAT as string}
+          />
+        </Route>
         <Route exact path={INITIAL_TIME} component={InitialTimer} />
         <Route exact path={TRAINING} component={TrainingRunner} />
       </Switch>
