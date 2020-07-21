@@ -57,7 +57,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   ];
 
   const onSubmit = (values: TrainingFormInput) => {
-    dispatch(setTraining(buildTraining(values.TrainingForm)));
+    dispatch(setTraining(buildTraining(values[fieldArrayName])));
     dispatch(
       setInitialTime((values.initialTime || defaultTimeValue()).valueOf())
     );

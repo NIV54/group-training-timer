@@ -1,14 +1,15 @@
 import moment from "moment";
+import { WORK_TIME, BREAK_TIME } from "../../../store/training/types";
 
 /**
  * These constants corelate to types in ./types.ts file
  * Changing them will change the types
  */
-export const workTimeInputName = "workTime";
-export const breakTimeInputName = "breakTime";
+export const workTimeInputName = WORK_TIME;
+export const breakTimeInputName = BREAK_TIME;
 export const initialTimeInputName = "initialTime";
 export const roundsInputName = "rounds";
-export const fieldArrayName = "TrainingForm";
+export const fieldArrayName = "trainingForm";
 
 export const errorMessage = "All values must be bigger than 0";
 

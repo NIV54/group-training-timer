@@ -1,17 +1,23 @@
 import { Moment } from "moment";
 
 import { Round } from "../../../store/training/types";
-import { fieldArrayName } from "./constants";
+import {
+  fieldArrayName,
+  roundsInputName,
+  initialTimeInputName
+} from "./constants";
 
 type RoundStrings = {
   [T in keyof Round]: Moment;
 };
 
-export type TrainingFormOutput = Partial<RoundStrings & { rounds: string }>[];
+export type TrainingFormOutput = Partial<
+  RoundStrings & { [roundsInputName]: string }
+>[];
 
 export type TrainingFormInput = {
   [fieldArrayName]: TrainingFormOutput;
-  initialTime?: Moment;
+  [initialTimeInputName]?: Moment;
 };
 
 export interface ValidationError {
