@@ -20,7 +20,7 @@ export const InitialTimer = () => {
   useTimeout(value, () => history.replace(TRAINING));
 
   return (
-    <div className="container d-flex align-items-center justify-content-center">
+    <div className="container content-center">
       <HomeButton />
       <div className="row text-center">
         <div className="col-12">

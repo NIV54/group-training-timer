@@ -66,8 +66,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   };
 
   return (
-    <div className="container">
-      <div className="row h-100 col-10 justify-content-center align-items-center offset-1">
+    <div className="container content-center">
+      <div className="row h-100 w-100 col-12 content-center p-0">
         {/* I don't understand why but handleSubmit won't accept submit although is has the right type (100% right)*/}
         <form className="col-12" onSubmit={handleSubmit(onSubmit as any)}>
           {fields.map((field, index) => (
