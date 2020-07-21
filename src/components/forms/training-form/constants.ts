@@ -7,8 +7,9 @@ import moment from "moment";
 export const workTimeInputName = "workTime";
 export const breakTimeInputName = "breakTime";
 export const initialTimeInputName = "initialTime";
+export const roundsInputName = "rounds";
 export const fieldArrayName = "TrainingForm";
 
-export const errorMessage = "Work and break time must be bigger than 00:00";
+export const errorMessage = "All values must be bigger than 0";
 
 export const defaultTimeValue = () => moment("1970-01-01Z00:00:00:000");

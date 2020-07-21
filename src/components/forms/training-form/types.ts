@@ -7,7 +7,7 @@ type RoundStrings = {
   [T in keyof Round]: Moment;
 };
 
-export type TrainingFormOutput = Partial<RoundStrings>[];
+export type TrainingFormOutput = Partial<RoundStrings & { rounds: string }>[];
 
 export type TrainingFormInput = {
   [fieldArrayName]: TrainingFormOutput;

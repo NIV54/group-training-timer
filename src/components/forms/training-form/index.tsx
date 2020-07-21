@@ -17,7 +17,8 @@ import {
   fieldArrayName,
   errorMessage,
   initialTimeInputName,
-  defaultTimeValue
+  defaultTimeValue,
+  roundsInputName
 } from "./constants";
 import { buildTraining } from "./utils/build-training";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
@@ -32,7 +33,9 @@ interface TrainingFormProps {
 }
 
 export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
-  const { handleSubmit, control, errors } = useForm<TrainingFormInput>({
+  const { handleSubmit, control, errors, register } = useForm<
+    TrainingFormInput
+  >({
     reValidateMode: "onSubmit",
     resolver: validationResolver(errorMessage)
   });
@@ -43,8 +46,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const appendInput = () =>
-    append({ name: `${fieldArrayName}${fields.length}` });
+  const appendInput = () => append({});
   const removeInput = () => remove(fields.length - 1);
 
   useEffect(appendInput, [append]);
@@ -69,8 +71,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
         <form className="col-12" onSubmit={handleSubmit(onSubmit as any)}>
           {fields.map((field, index) => (
             <div className="form-row" key={field.id}>
-              <div className="form-group col-6">
-                <label htmlFor={`${workTimeInputName}`}>Work Time</label>
+              <div className="form-group col-4">
+                <label htmlFor={workTimeInputName}>Work Time</label>
                 <Controller
                   as={
                     <TimePicker
@@ -84,29 +86,37 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   className="form-control"
                 />
               </div>
-              <div className="form-group col-6">
-                <>
-                  <label htmlFor={`${breakTimeInputName}`}>Break Time</label>
-                  <Controller
-                    as={
-                      <TimePicker
-                        defaultValue={defaultTimeValue()}
-                        format={timeFormat}
-                        inputReadOnly={true}
-                      />
-                    }
-                    control={control}
-                    name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
-                    className="form-control"
-                  />
-                </>
+              <div className="form-group col-4">
+                <label htmlFor={breakTimeInputName}>Break Time</label>
+                <Controller
+                  as={
+                    <TimePicker
+                      defaultValue={defaultTimeValue()}
+                      format={timeFormat}
+                      inputReadOnly={true}
+                    />
+                  }
+                  control={control}
+                  name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group col-4">
+                <label htmlFor={roundsInputName}>Rounds</label>
+                <input
+                  name={`${fieldArrayName}[${index}].${roundsInputName}`}
+                  className="form-control"
+                  type="number"
+                  ref={register()}
+                  defaultValue={1}
+                />
               </div>
             </div>
           ))}
           <hr />
           <div className="form-row">
             <div className="form-group col-6">
-              <label htmlFor={`${initialTimeInputName}`}>Loading</label>
+              <label htmlFor={initialTimeInputName}>Loading</label>
               <Controller
                 as={
                   <TimePicker
