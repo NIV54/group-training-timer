@@ -58,7 +58,9 @@ export const TrainingRunner = () => {
         <div className="col-12">
           <h1>{getRound()}</h1>
         </div>
-        <div className="col-12">{renderButtons(buttons)}</div>
+        <div className="col-12 btn-xl">
+          {renderButtons({ buttons, additionalStyle: "btn-lg" })}
+        </div>
         <div className="col-12">
           <h1 className={`${timesIndex % 2 === 0 ? "work" : "break"}`}>
             {formatTimeUnit(value.m)}:{formatTimeUnit(value.s)}

@@ -122,7 +122,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
             </div>
           </div>
           <div className="row justify-content-center">
-            {renderButtons(buttons)}
+            {renderButtons({ buttons })}
           </div>
           {Object.keys(errors).length > 0 && (
             <div className="alert alert-danger my-2" role="alert">
