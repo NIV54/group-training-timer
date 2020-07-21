@@ -30,9 +30,7 @@ export const TrainingRunner = () => {
     if (timesIndex < times.length) {
       setTime(times[timesIndex]);
     }
-    if (timesIndex > 0) {
-      toggle();
-    }
+    toggle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timesIndex]);
 
