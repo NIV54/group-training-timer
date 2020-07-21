@@ -27,6 +27,7 @@ import { TrainingFormInput, ValidationError } from "./types";
 import { validationResolver } from "../utils/validation-resolver";
 
 import "antd/dist/antd.css";
+import "./training-form.scss";
 
 interface TrainingFormProps {
   timeFormat: string;
