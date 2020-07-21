@@ -117,7 +117,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
           <hr />
           <div className="form-row">
             <div className="form-group col-6">
-              <label htmlFor={initialTimeInputName}>Loading</label>
+              <label htmlFor={initialTimeInputName}>Countdown</label>
               <Controller
                 as={
                   <TimePicker
