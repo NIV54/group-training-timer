@@ -8,8 +8,12 @@ export interface Round {
   [BREAK_TIME]: number;
 }
 
-export interface Countdown {
+export interface Training {
   [COUNTDOWN]: number;
+  [ROUNDS]: Round[];
 }
 
-export type Training = Countdown & { [ROUNDS]: Round[] };
+export interface NamedTraining {
+  name: string;
+  training: Training;
+}
