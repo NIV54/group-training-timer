@@ -4,7 +4,10 @@ import { Training } from "./types";
 const trainingSlice = createSlice({
   initialState: {
     savedTrainings: [] as Training[],
-    currentTraining: {} as Training
+    currentTraining: {
+      rounds: [{ workTime: 0, breakTime: 0 }],
+      countdown: 0
+    } as Training
   },
   name: "training",
   reducers: {
