@@ -3,23 +3,23 @@ import { Training } from "./types";
 
 const trainingSlice = createSlice({
   initialState: {
-    rounds: [] as Training,
-    countdown: 0
+    savedTrainings: [] as Training[],
+    currentTraining: {} as Training
   },
   name: "training",
   reducers: {
-    setTraining: (state, action: PayloadAction<Training>) => ({
+    setCurrentTraining: (state, action: PayloadAction<Training>) => ({
       ...state,
-      rounds: [...action.payload]
+      currentTraining: action.payload
     }),
-    setCountdown: (state, action: PayloadAction<number>) => ({
+    addTraining: (state, action: PayloadAction<Training>) => ({
       ...state,
-      countdown: action.payload
+      savedTrainings: [...state.savedTrainings, action.payload]
     })
   }
 });
 
 export const {
   reducer: trainingReducer,
-  actions: { setTraining, setCountdown }
+  actions: { setCurrentTraining, addTraining }
 } = trainingSlice;
