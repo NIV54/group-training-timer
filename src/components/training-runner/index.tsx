@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../../store";
-import { Training } from "../../store/training/types";
+import { ROUNDS, Round } from "../../store/training/types";
 import { buildTimesArray } from "./utils/build-times-array";
 import { useTimer } from "react-compound-timer";
 import { formatTimeUnit } from "../utils/timer/format-time-unit";
@@ -14,9 +14,13 @@ import { HomeButton } from "../general/links";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
-  const training = useSelector<State, Training>(state => state.training.rounds);
+  const trainingRounds = useSelector<State, Round[]>(
+    state => state.training.currentTraining[ROUNDS]
+  );
   const [timesIndex, setTimesIndex] = useState(0);
-  const times = useMemo(() => buildTimesArray(training), [training]);
+  const times = useMemo(() => buildTimesArray(trainingRounds), [
+    trainingRounds
+  ]);
   const {
     controls: { pause, resume, setTime },
     value

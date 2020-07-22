@@ -1,6 +1,6 @@
-import { Training } from "../../../store/training/types";
+import { Round } from "../../../store/training/types";
 
-export const buildTimesArray = (training: Training) =>
+export const buildTimesArray = (training: Round[]) =>
   training
     .map(({ workTime, breakTime }) => [workTime, breakTime])
     .flat()

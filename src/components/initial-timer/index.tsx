@@ -7,10 +7,11 @@ import { State } from "../../store";
 import { useHistory } from "react-router-dom";
 import { TRAINING } from "../app/routes";
 import { HomeButton } from "../general/links";
+import { COUNTDOWN } from "../../store/training/types";
 
 export const Countdown = () => {
   const countdown = useSelector<State, number>(
-    state => state.training.countdown
+    state => state.training.currentTraining[COUNTDOWN]
   );
   const { value } = useTimer({
     direction: "backward",

@@ -1,14 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  useForm,
-  useFieldArray,
-  Controller,
-  SubmitHandler
-} from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { TimePicker } from "antd";
 
-import { setTraining, setCountdown } from "../../../store/training/slice";
+import { setCurrentTraining, addTraining } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
 import { COUNTDOWN } from "../../app/routes";
 import {
@@ -58,9 +53,11 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   ];
 
   const onSubmit = (values: TrainingFormInput) => {
-    dispatch(setTraining(buildTraining(values[fieldArrayName])));
     dispatch(
-      setCountdown((values[countdownInputName] || defaultTimeValue()).valueOf())
+      setCurrentTraining({
+        countdown: (values[countdownInputName] || defaultTimeValue()).valueOf(),
+        rounds: buildTraining(values[fieldArrayName])
+      })
     );
     history.replace(COUNTDOWN);
   };

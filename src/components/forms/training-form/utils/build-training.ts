@@ -1,8 +1,8 @@
-import { Training } from "../../../../store/training/types";
+import { Round } from "../../../../store/training/types";
 import { TrainingFormOutput } from "../types";
 import { defaultTimeValue } from "../constants";
 
-export const buildTraining = (trainingOutput: TrainingFormOutput): Training =>
+export const buildTraining = (trainingOutput: TrainingFormOutput): Round[] =>
   trainingOutput
     .map(
       ({
