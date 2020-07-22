@@ -1,18 +1,13 @@
-import { Round } from "../../../../store/training/types";
-import { TrainingFormOutput } from "../types";
-import { defaultTimeValue } from "../constants";
+import { TrainingFormInput } from "../types";
+import { Training } from "../../../../store/training/types";
+import {
+  countdownInputName,
+  defaultTimeValue,
+  fieldArrayName
+} from "../constants";
+import { buildTrainingRounds } from "./build-training-rounds";
 
-export const buildTraining = (trainingOutput: TrainingFormOutput): Round[] =>
-  trainingOutput
-    .map(
-      ({
-        workTime = defaultTimeValue(),
-        breakTime = defaultTimeValue(),
-        rounds = "1"
-      }) => [...Array(parseInt(rounds))].map(() => [workTime, breakTime])
-    )
-    .flat()
-    .map(([workTime, breakTime]) => ({
-      workTime: workTime.valueOf(),
-      breakTime: breakTime.valueOf()
-    }));
+export const buildTraining = (values: TrainingFormInput): Training => ({
+  countdown: (values[countdownInputName] || defaultTimeValue()).valueOf(),
+  rounds: buildTrainingRounds(values[fieldArrayName])
+});
