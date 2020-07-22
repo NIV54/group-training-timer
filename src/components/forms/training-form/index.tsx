@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { TimePicker } from "antd";
 
-import { setCurrentTraining } from "../../../store/training/slice";
+import { setCurrentTraining, addTraining } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
 import { COUNTDOWN } from "../../app/routes";
 import {
@@ -29,9 +29,16 @@ interface TrainingFormProps {
 }
 
 export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
-  const { handleSubmit, control, errors, register } = useForm<
-    TrainingFormInput
-  >({
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const {
+    handleSubmit,
+    control,
+    errors,
+    register,
+    getValues: getFormValues
+  } = useForm<TrainingFormInput>({
     reValidateMode: "onSubmit",
     resolver: validationResolver(errorMessage)
   });
@@ -39,13 +46,12 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
     control,
     name: fieldArrayName
   });
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const appendInput = () => append({});
   const removeInput = () => remove(fields.length - 1);
 
   useEffect(appendInput, [append]);
+  const [actionType, setActionType] = useState<"start" | "save">("save");
 
   const buttons: Button[] = [
     ["append", appendInput],
@@ -53,8 +59,26 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   ];
 
   const onSubmit = (values: TrainingFormInput) => {
+    switch (actionType) {
+      case "start":
+        onStart(values);
+        break;
+      case "save":
+        onSave();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onStart = (values: TrainingFormInput) => {
     dispatch(setCurrentTraining(buildTraining(values)));
     history.replace(COUNTDOWN);
+  };
+
+  const onSave = () => {
+    const formValues = getFormValues() as TrainingFormInput;
+    dispatch(addTraining(buildTraining(formValues)));
   };
 
   return (
@@ -125,7 +149,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
             </div>
           </div>
           <div className="row justify-content-center">
-            {renderButtons({ buttons })}
+            {renderButtons({ buttons, additionalStyle: "col-4" })}
           </div>
           {Object.keys(errors).length > 0 && (
             <div className="alert alert-danger my-2" role="alert">
@@ -133,8 +157,19 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
             </div>
           )}
           <div className="row justify-content-center">
-            <button type="submit" className="btn btn-primary mt-2">
-              Submit
+            <button
+              type="submit"
+              className="confirmation-button"
+              onClick={() => setActionType("start")}
+            >
+              Start
+            </button>
+            <button
+              type="submit"
+              className="confirmation-button"
+              onClick={() => setActionType("save")}
+            >
+              Save
             </button>
           </div>
         </form>

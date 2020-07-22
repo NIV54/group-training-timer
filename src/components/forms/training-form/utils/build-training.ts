@@ -7,7 +7,11 @@ import {
 } from "../constants";
 import { buildTrainingRounds } from "./build-training-rounds";
 
-export const buildTraining = (values: TrainingFormInput): Training => ({
-  countdown: (values[countdownInputName] || defaultTimeValue()).valueOf(),
-  rounds: buildTrainingRounds(values[fieldArrayName])
+export const buildTraining = (
+  trainingFormInput: TrainingFormInput
+): Training => ({
+  countdown: (
+    trainingFormInput[countdownInputName] || defaultTimeValue()
+  ).valueOf(),
+  rounds: buildTrainingRounds(trainingFormInput[fieldArrayName])
 });

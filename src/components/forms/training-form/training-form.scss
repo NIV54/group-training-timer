@@ -1,3 +1,6 @@
+@import "bootstrap";
+@import "../../training-runner/training-runner.scss";
+
 .ant-picker-content > .ant-picker-time-panel-column {
   overflow-y: auto;
   &::-webkit-scrollbar-track {
@@ -16,4 +19,12 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #555;
   }
+}
+
+.confirmation-button {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .col-4;
+  @extend .mt-2;
+  @extend .margin-side;
 }
