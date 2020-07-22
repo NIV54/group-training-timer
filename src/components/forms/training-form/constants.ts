@@ -7,7 +7,7 @@ import { WORK_TIME, BREAK_TIME } from "../../../store/training/types";
  */
 export const workTimeInputName = WORK_TIME;
 export const breakTimeInputName = BREAK_TIME;
-export const initialTimeInputName = "initialTime";
+export const countdownInputName = "countdown";
 export const roundsInputName = "rounds";
 export const fieldArrayName = "trainingForm";
 

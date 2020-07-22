@@ -8,13 +8,13 @@ import { useHistory } from "react-router-dom";
 import { TRAINING } from "../app/routes";
 import { HomeButton } from "../general/links";
 
-export const InitialTimer = () => {
-  const initialTime = useSelector<State, number>(
-    state => state.training.initialTime
+export const Countdown = () => {
+  const countdown = useSelector<State, number>(
+    state => state.training.countdown
   );
   const { value } = useTimer({
     direction: "backward",
-    initialTime
+    initialTime: countdown
   });
   const history = useHistory();
   useTimeout(value, () => history.replace(TRAINING));

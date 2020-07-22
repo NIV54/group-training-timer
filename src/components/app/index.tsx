@@ -4,8 +4,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { store } from "../../store";
 import { TrainingRunner } from "../training-runner";
 import { TrainingForm } from "../forms/training-form";
-import { TRAINING, HOME, INITIAL_TIME } from "./routes";
-import { InitialTimer } from "../initial-timer";
+import { TRAINING, HOME, COUNTDOWN } from "./routes";
+import { Countdown } from "../initial-timer";
 
 const App = () => (
   <Provider store={store}>
@@ -16,7 +16,7 @@ const App = () => (
             timeFormat={process.env.REACT_APP_TIME_FORMAT as string}
           />
         </Route>
-        <Route exact path={INITIAL_TIME} component={InitialTimer} />
+        <Route exact path={COUNTDOWN} component={Countdown} />
         <Route exact path={TRAINING} component={TrainingRunner} />
       </Switch>
     </BrowserRouter>

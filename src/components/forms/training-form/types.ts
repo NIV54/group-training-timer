@@ -4,7 +4,7 @@ import { Round } from "../../../store/training/types";
 import {
   fieldArrayName,
   roundsInputName,
-  initialTimeInputName
+  countdownInputName
 } from "./constants";
 
 type RoundStrings = {
@@ -17,7 +17,7 @@ export type TrainingFormOutput = Partial<
 
 export type TrainingFormInput = {
   [fieldArrayName]: TrainingFormOutput;
-  [initialTimeInputName]?: Moment;
+  [countdownInputName]?: Moment;
 };
 
 export interface ValidationError {

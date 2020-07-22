@@ -8,15 +8,15 @@ import {
 import { useDispatch } from "react-redux";
 import { TimePicker } from "antd";
 
-import { setTraining, setInitialTime } from "../../../store/training/slice";
+import { setTraining, setCountdown } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
-import { INITIAL_TIME } from "../../app/routes";
+import { COUNTDOWN } from "../../app/routes";
 import {
   breakTimeInputName,
   workTimeInputName,
   fieldArrayName,
   errorMessage,
-  initialTimeInputName,
+  countdownInputName,
   defaultTimeValue,
   roundsInputName
 } from "./constants";
@@ -60,9 +60,9 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const onSubmit = (values: TrainingFormInput) => {
     dispatch(setTraining(buildTraining(values[fieldArrayName])));
     dispatch(
-      setInitialTime((values.initialTime || defaultTimeValue()).valueOf())
+      setCountdown((values[countdownInputName] || defaultTimeValue()).valueOf())
     );
-    history.replace(INITIAL_TIME);
+    history.replace(COUNTDOWN);
   };
 
   return (
@@ -117,7 +117,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
           <hr />
           <div className="form-row">
             <div className="form-group col-6">
-              <label htmlFor={initialTimeInputName}>Countdown</label>
+              <label htmlFor={countdownInputName}>Countdown</label>
               <Controller
                 as={
                   <TimePicker
@@ -127,7 +127,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   />
                 }
                 control={control}
-                name={`${initialTimeInputName}`}
+                name={`${countdownInputName}`}
                 className="form-control"
               />
             </div>
