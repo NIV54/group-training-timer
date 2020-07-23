@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { State } from "../../store";
 import { useHistory } from "react-router-dom";
 import { TRAINING_ROUTE } from "../app/routes";
-import { HomeButton } from "../general/links";
 import { COUNTDOWN } from "../../store/training/types";
 
 export const Countdown = () => {
@@ -22,7 +21,6 @@ export const Countdown = () => {
 
   return (
     <div className="container content-center">
-      <HomeButton />
       <div className="row text-center">
         <div className="col-12">
           <h1>Countdown</h1>
