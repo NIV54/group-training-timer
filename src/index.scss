@@ -16,3 +16,7 @@ body,
   @extend .justify-content-center;
   @extend .align-items-center;
 }
+
+.margin-side {
+  margin: 0 4px;
+}
