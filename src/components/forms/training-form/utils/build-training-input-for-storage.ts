@@ -1,10 +1,10 @@
-import { TrainingFormInput, TrainingFormForStorage } from "../types";
+import { TrainingFormInput, SavedTraining } from "../types";
 import { valueOfOrDefault } from "../../../utils/timer/value-of-or-default";
 
 export const buildTrainingInputForStorage = (
   trainingName: string,
   trainingInput: TrainingFormInput
-): TrainingFormForStorage => ({
+): SavedTraining => ({
   name: trainingName,
   countdown: valueOfOrDefault(trainingInput.countdown),
   training: trainingInput.trainingForm.map(

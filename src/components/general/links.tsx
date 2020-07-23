@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HOME } from "../app/routes";
+import { HOME_ROUTE } from "../app/routes";
 
 export const HomeButton = ({ size = 2 }) => (
-  <Link className="fixed-top nav-link" to={HOME}>
+  <Link className="fixed-top nav-link" to={HOME_ROUTE}>
     <svg
       width={`${size}em`}
       height={`${size}em`}

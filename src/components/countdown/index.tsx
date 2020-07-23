@@ -5,7 +5,7 @@ import { formatTimeUnit } from "../utils/timer/format-time-unit";
 import { useSelector } from "react-redux";
 import { State } from "../../store";
 import { useHistory } from "react-router-dom";
-import { TRAINING } from "../app/routes";
+import { TRAINING_ROUTE } from "../app/routes";
 import { HomeButton } from "../general/links";
 import { COUNTDOWN } from "../../store/training/types";
 
@@ -18,7 +18,7 @@ export const Countdown = () => {
     initialTime: countdown
   });
   const history = useHistory();
-  useTimeout(value, () => history.replace(TRAINING));
+  useTimeout(value, () => history.replace(TRAINING_ROUTE));
 
   return (
     <div className="container content-center">

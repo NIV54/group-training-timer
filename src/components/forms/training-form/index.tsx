@@ -8,7 +8,7 @@ import {
   addTrainingInput
 } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
-import { COUNTDOWN } from "../../app/routes";
+import { COUNTDOWN_ROUTE } from "../../app/routes";
 import {
   breakTimeInputName,
   workTimeInputName,
@@ -73,7 +73,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
 
   const onStart = (values: TrainingFormInput) => {
     dispatch(setCurrentTraining(buildTraining(values)));
-    history.replace(COUNTDOWN);
+    history.replace(COUNTDOWN_ROUTE);
   };
 
   const onSave = (values: TrainingFormInput) => {

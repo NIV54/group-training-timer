@@ -7,7 +7,7 @@ import {
   countdownInputName
 } from "./constants";
 
-export interface TrainingFormForStorage {
+export interface SavedTraining {
   name: string;
   [countdownInputName]: number;
   training: Partial<
