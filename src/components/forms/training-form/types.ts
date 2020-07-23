@@ -7,12 +7,15 @@ import {
   countdownInputName
 } from "./constants";
 
-type RoundStrings = {
-  [T in keyof Round]: Moment;
-};
+export interface TrainingFormForStorage {
+  [countdownInputName]: number;
+  training: Partial<
+    { [T in keyof Round]: number } & { [roundsInputName]: string }
+  >[];
+}
 
 export type TrainingFormOutput = Partial<
-  RoundStrings & { [roundsInputName]: string }
+  { [T in keyof Round]: Moment } & { [roundsInputName]: string }
 >[];
 
 export type TrainingFormInput = {
