@@ -131,6 +131,9 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
               </div>
             </div>
           ))}
+          <div className="row justify-content-center">
+            {renderButtons({ buttons, additionalStyle: "col-4" })}
+          </div>
           <hr />
           <div className="form-row">
             <div className="form-group col-6">
@@ -149,9 +152,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
               />
             </div>
           </div>
-          <div className="row justify-content-center">
-            {renderButtons({ buttons, additionalStyle: "col-4" })}
-          </div>
+          <hr />
           {Object.keys(errors).length > 0 && (
             <div className="alert alert-danger my-2" role="alert">
               {(errors as ValidationError).errorMessage}
