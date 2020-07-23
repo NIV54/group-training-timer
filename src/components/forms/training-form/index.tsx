@@ -3,12 +3,8 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { TimePicker } from "antd";
 
-import {
-  setCurrentTraining,
-  addTrainingInput
-} from "../../../store/training/slice";
+import { addTrainingInput } from "../../../store/training/slice";
 import { useHistory } from "react-router-dom";
-import { COUNTDOWN_ROUTE } from "../../app/routes";
 import {
   breakTimeInputName,
   workTimeInputName,
@@ -18,7 +14,6 @@ import {
   defaultTimeValue,
   roundsInputName
 } from "./constants";
-import { buildTraining } from "./utils/build-training";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
 import { TrainingFormInput, ValidationError } from "./types";
@@ -27,6 +22,7 @@ import { validationResolver } from "../utils/validation-resolver";
 import "antd/dist/antd.css";
 import "./training-form.scss";
 import { buildTrainingInputForStorage } from "./utils/build-training-input-for-storage";
+import { startTraining } from "../../utils/tarining/start-training";
 
 interface TrainingFormProps {
   timeFormat: string;
@@ -72,8 +68,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   };
 
   const onStart = (values: TrainingFormInput) => {
-    dispatch(setCurrentTraining(buildTraining(values)));
-    history.replace(COUNTDOWN_ROUTE);
+    startTraining(values, dispatch, history);
   };
 
   const onSave = (values: TrainingFormInput) => {
