@@ -5,7 +5,7 @@ import { store } from "../../store";
 import { TrainingRunner } from "../training-runner";
 import { TrainingForm } from "../forms/training-form";
 import { TRAINING, HOME, COUNTDOWN } from "./routes";
-import { Countdown } from "../initial-timer";
+import { Countdown } from "../countdown";
 
 const App = () => (
   <Provider store={store}>
