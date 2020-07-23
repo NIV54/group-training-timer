@@ -23,6 +23,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "redux-watch": "^1.1.1",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -50,6 +51,7 @@
     "@types/antd": "^1.0.0",
     "@types/moment": "^2.13.0",
     "@types/react-redux": "^7.1.9",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux-watch": "^1.1.0"
   }
 }

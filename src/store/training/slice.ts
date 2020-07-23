@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Training, ROUNDS, COUNTDOWN } from "./types";
 import { TrainingFormForStorage } from "../../components/forms/training-form/types";
 
+export const SAVED_TRAININGS = "savedTrainings";
+
 const trainingSlice = createSlice({
   initialState: {
-    savedTrainings: [] as TrainingFormForStorage[],
+    [SAVED_TRAININGS]: [] as TrainingFormForStorage[],
     currentTraining: {
       [ROUNDS]: [{ workTime: 0, breakTime: 0 }],
       [COUNTDOWN]: 0
@@ -21,12 +23,13 @@ const trainingSlice = createSlice({
       action: PayloadAction<TrainingFormForStorage>
     ) => ({
       ...state,
-      savedTrainings: [...state.savedTrainings, action.payload]
+      savedTrainings: [...state[SAVED_TRAININGS], action.payload]
     })
   }
 });
 
 export const {
   reducer: trainingReducer,
-  actions: { setCurrentTraining, addTrainingInput }
+  actions: { setCurrentTraining, addTrainingInput },
+  name: trainingStateName
 } = trainingSlice;
