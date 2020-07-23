@@ -8,6 +8,7 @@ import {
 } from "./constants";
 
 export interface TrainingFormForStorage {
+  name: string;
   [countdownInputName]: number;
   training: Partial<
     { [T in keyof Round]: number } & { [roundsInputName]: string }

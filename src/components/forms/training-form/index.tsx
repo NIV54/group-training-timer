@@ -77,7 +77,14 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   };
 
   const onSave = (values: TrainingFormInput) => {
-    dispatch(addTrainingInput(buildTrainingInputForStorage(values)));
+    let trainingName: string | null = null;
+    while (!trainingName) {
+      trainingName = prompt("Training name:");
+    }
+
+    dispatch(
+      addTrainingInput(buildTrainingInputForStorage(trainingName, values))
+    );
   };
 
   return (
