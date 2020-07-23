@@ -44,13 +44,13 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   });
 
   const appendInput = () => append({});
-  const removeInput = () => remove(fields.length - 1);
+  const removeInput = () => fields.length > 0 && remove(fields.length - 1);
 
   useEffect(appendInput, [append]);
   const [actionType, setActionType] = useState<"start" | "save">("save");
 
   const buttons: Button[] = [
-    ["append", appendInput],
+    ["add", appendInput],
     ["remove", removeInput]
   ];
 
