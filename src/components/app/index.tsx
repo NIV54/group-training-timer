@@ -7,7 +7,7 @@ import { TrainingForm } from "../forms/training-form";
 import { TRAINING_ROUTE, NEW_TRAINING, COUNTDOWN_ROUTE, HOME } from "./routes";
 import { Countdown } from "../countdown";
 import { SavedTrainings } from "../saved-trainings";
-import { Navbar } from "../navbar";
+import { Navbar } from "../general/navbar";
 
 const App = () => (
   <Provider store={store}>
