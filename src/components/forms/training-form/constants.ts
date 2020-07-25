@@ -16,7 +16,8 @@ export const countdownInputName = COUNTDOWN;
 export const roundsInputName = ROUNDS;
 export const fieldArrayName = "trainingForm";
 
-export const errorMessage = "All values must be bigger than 0";
+export const mainFormErrorMessage = "All values must be bigger than 0";
+export const trainingNameModalErrorMessage = "Training name not set";
 
 export const defaultTimeValue = () => moment("1970-01-01Z00:00:00:000");
 export const defaultRoundsValue = "1";

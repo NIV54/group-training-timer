@@ -9,10 +9,11 @@ import {
   breakTimeInputName,
   workTimeInputName,
   fieldArrayName,
-  errorMessage,
+  mainFormErrorMessage,
   countdownInputName,
   defaultTimeValue,
-  roundsInputName
+  roundsInputName,
+  trainingNameModalErrorMessage
 } from "./constants";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
@@ -23,6 +24,8 @@ import "antd/dist/antd.css";
 import "./training-form.scss";
 import { buildTrainingInputForStorage } from "./utils/build-training-input-for-storage";
 import { startTraining } from "../../utils/tarining/start-training";
+import { Modal } from "../../general/modal";
+import { HOME } from "../../app/routes";
 
 interface TrainingFormProps {
   timeFormat: string;
@@ -32,11 +35,15 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { handleSubmit, control, errors, register } = useForm<
-    TrainingFormInput
-  >({
+  const {
+    handleSubmit,
+    control,
+    errors,
+    register,
+    getValues: getFormValues
+  } = useForm<TrainingFormInput>({
     reValidateMode: "onSubmit",
-    resolver: validationResolver(errorMessage)
+    resolver: validationResolver(mainFormErrorMessage)
   });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -50,11 +57,33 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
 
   const [actionType, setActionType] = useState<"start" | "save">("save");
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [isModalErrorVisible, setIsModalErrorVisible] = useState(false);
+  const [trainingName, setTrainingName] = useState("");
 
   const buttons: Button[] = [
     ["add", appendInput],
     ["remove", removeInput]
   ];
+
+  const onStart = (values: TrainingFormInput) => {
+    startTraining(values, dispatch, history);
+  };
+
+  const onAdd = () => {
+    if (trainingName !== "") {
+      const formValues = getFormValues() as TrainingFormInput;
+      dispatch(
+        addTrainingInput(buildTrainingInputForStorage(trainingName, formValues))
+      );
+      history.replace(HOME);
+      return true;
+    }
+
+    setIsModalErrorVisible(true);
+    return false;
+  };
+
+  const onSave = () => setIsSaveModalOpen(true);
 
   const onSubmit = (values: TrainingFormInput) => {
     switch (actionType) {
@@ -62,30 +91,36 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
         onStart(values);
         break;
       case "save":
-        onSave(values);
+        onSave();
         break;
       default:
         break;
     }
   };
 
-  const onStart = (values: TrainingFormInput) => {
-    startTraining(values, dispatch, history);
-  };
-
-  const onSave = (values: TrainingFormInput) => {
-    let trainingName: string | null = null;
-    while (!trainingName) {
-      trainingName = prompt("Training name:");
-    }
-
-    dispatch(
-      addTrainingInput(buildTrainingInputForStorage(trainingName, values))
-    );
-  };
-
   return (
     <div className="container content-center">
+      <Modal
+        title="Add Training"
+        isOpen={isSaveModalOpen}
+        confirmText="Add"
+        onConfirm={onAdd}
+        onAbort={() => setIsModalErrorVisible(false)}
+      >
+        <>
+          <input
+            className="form-control"
+            type="text"
+            value={trainingName}
+            onChange={e => setTrainingName(e.target.value)}
+          />
+          {isModalErrorVisible && (
+            <div className="alert alert-danger my-2" role="alert">
+              {trainingNameModalErrorMessage}
+            </div>
+          )}
+        </>
+      </Modal>
       <div className="row h-100 w-100 col-12 content-center p-0">
         {/* I don't understand why but handleSubmit won't accept submit although is has the right type (100% right)*/}
         <form className="col-12" onSubmit={handleSubmit(onSubmit as any)}>
