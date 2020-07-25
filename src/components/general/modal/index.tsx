@@ -3,18 +3,18 @@ import $ from "jquery";
 
 interface ModalProps {
   title: string;
-  isOpen: boolean;
-  onConfirm: () => boolean;
-  onAbort?: () => any;
+  show: boolean;
+  handleClose: () => void;
+  onConfirm: () => void;
   confirmText?: string;
   abortText?: string;
 }
 
 export const Modal = ({
   title,
-  isOpen,
+  show,
+  handleClose,
   onConfirm,
-  onAbort = () => {},
   confirmText = "OK",
   abortText = "Cancel",
   children
@@ -22,22 +22,11 @@ export const Modal = ({
   const modalId = "modal";
 
   const close = () => $(`#${modalId}`).modal("hide");
-
-  const onUserClose = () => {
-    close();
-    onAbort();
-  };
-
-  const onUserConfirm = () => {
-    const shouldCloseModal = onConfirm();
-    shouldCloseModal && close();
-  };
+  const open = () => $(`#${modalId}`).modal("show");
 
   useEffect(() => {
-    if (isOpen) {
-      $(`#${modalId}`).modal("show");
-    }
-  }, [isOpen]);
+    show ? open() : close();
+  }, [show]);
 
   return (
     <div id={modalId} className="modal fade" tabIndex={-1} role="dialog">
@@ -49,7 +38,7 @@ export const Modal = ({
               type="button"
               className="close"
               aria-label="Close"
-              onClick={onUserClose}
+              onClick={handleClose}
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -59,14 +48,14 @@ export const Modal = ({
             <button
               type="button"
               className="btn btn-secondary"
-              onClick={onUserClose}
+              onClick={handleClose}
             >
               {abortText}
             </button>
             <button
               type="button"
               className="btn btn-primary"
-              onClick={onUserConfirm}
+              onClick={onConfirm}
             >
               {confirmText}
             </button>

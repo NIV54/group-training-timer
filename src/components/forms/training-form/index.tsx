@@ -56,34 +56,19 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   useEffect(appendInput, [append]);
 
   const [actionType, setActionType] = useState<"start" | "save">("save");
-  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const [isModalErrorVisible, setIsModalErrorVisible] = useState(false);
   const [trainingName, setTrainingName] = useState("");
-
-  const buttons: Button[] = [
-    ["add", appendInput],
-    ["remove", removeInput]
-  ];
 
   const onStart = (values: TrainingFormInput) => {
     startTraining(values, dispatch, history);
   };
 
-  const onAdd = () => {
-    if (trainingName !== "") {
-      const formValues = getFormValues() as TrainingFormInput;
-      dispatch(
-        addTrainingInput(buildTrainingInputForStorage(trainingName, formValues))
-      );
-      history.replace(HOME);
-      return true;
-    }
-
-    setIsModalErrorVisible(true);
-    return false;
+  const onSave = () => {
+    setShowSaveModal(false);
+    setShowSaveModal(true);
   };
-
-  const onSave = () => setIsSaveModalOpen(true);
 
   const onSubmit = (values: TrainingFormInput) => {
     switch (actionType) {
@@ -98,14 +83,38 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
     }
   };
 
+  const handleModalClose = () => {
+    setShowSaveModal(false);
+    setIsModalErrorVisible(false);
+  };
+
+  const buttons: Button[] = [
+    ["add", appendInput],
+    ["remove", removeInput]
+  ];
+
+  const onAdd = () => {
+    if (trainingName !== "") {
+      const formValues = getFormValues() as TrainingFormInput;
+      dispatch(
+        addTrainingInput(buildTrainingInputForStorage(trainingName, formValues))
+      );
+      history.replace(HOME);
+    }
+
+    setIsModalErrorVisible(true);
+  };
+
+  console.log("render");
+
   return (
     <div className="container content-center">
       <Modal
         title="Add Training"
-        isOpen={isSaveModalOpen}
+        show={showSaveModal}
+        handleClose={handleModalClose}
         confirmText="Add"
         onConfirm={onAdd}
-        onAbort={() => setIsModalErrorVisible(false)}
       >
         <>
           <input
