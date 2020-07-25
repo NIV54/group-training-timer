@@ -134,7 +134,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
             </div>
           ))}
           <div className="row justify-content-center">
-            {renderButtons({ buttons, additionalStyle: "col-4" })}
+            {renderButtons({ buttons, additionalStyle: "col-4 col-md-2" })}
           </div>
           <hr />
           <div className="form-row">
