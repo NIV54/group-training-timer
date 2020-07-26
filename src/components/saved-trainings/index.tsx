@@ -7,6 +7,8 @@ import { buildTrainingInputFromStorage } from "../forms/training-form/utils/buil
 import { startTraining } from "../utils/tarining/start-training";
 import { useHistory } from "react-router-dom";
 
+import "./saved-trainings.scss";
+
 export const SavedTrainings = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -29,7 +31,7 @@ export const SavedTrainings = () => {
           {savedTrainings.map((savedTraining, index) => (
             <div
               key={index}
-              className="list-group-item"
+              className="list-group-item training"
               onClick={() => onTrainingClick(savedTraining)}
             >
               {savedTraining.name}
