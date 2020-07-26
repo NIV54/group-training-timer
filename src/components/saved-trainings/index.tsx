@@ -23,18 +23,24 @@ export const SavedTrainings = () => {
   return (
     <div className="container">
       <h1 className="text-center">My Trainings</h1>
-      <div className="card mt-3">
-        <ul className="list-group list-group-flush"></ul>
-        {savedTrainings.map((savedTraining, index) => (
-          <div
-            key={index}
-            className="list-group-item"
-            onClick={() => onTrainingClick(savedTraining)}
-          >
-            {savedTraining.name}
-          </div>
-        ))}
-      </div>
+      {savedTrainings.length > 0 ? (
+        <div className="card mt-3">
+          <ul className="list-group list-group-flush"></ul>
+          {savedTrainings.map((savedTraining, index) => (
+            <div
+              key={index}
+              className="list-group-item"
+              onClick={() => onTrainingClick(savedTraining)}
+            >
+              {savedTraining.name}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <h3 className="text-center">
+          All your saved trainings will show up on this page!
+        </h3>
+      )}
     </div>
   );
 };
