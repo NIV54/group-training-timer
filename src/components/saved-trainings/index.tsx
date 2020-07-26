@@ -25,8 +25,9 @@ export const SavedTrainings = () => {
       <h1 className="text-center">My Trainings</h1>
       <div className="card mt-3">
         <ul className="list-group list-group-flush"></ul>
-        {savedTrainings.map(savedTraining => (
+        {savedTrainings.map((savedTraining, index) => (
           <div
+            key={index}
             className="list-group-item"
             onClick={() => onTrainingClick(savedTraining)}
           >

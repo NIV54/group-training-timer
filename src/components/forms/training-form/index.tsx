@@ -99,17 +99,17 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
       dispatch(
         addTrainingInput(buildTrainingInputForStorage(trainingName, formValues))
       );
-      history.replace(HOME);
+      setShowSaveModal(false);
+      setTimeout(() => history.replace(HOME), 0); // wait for fade
+    } else {
+      setIsModalErrorVisible(true);
     }
-
-    setIsModalErrorVisible(true);
   };
-
-  console.log("render");
 
   return (
     <div className="container content-center">
       <Modal
+        id="save-modal"
         title="Add Training"
         show={showSaveModal}
         handleClose={handleModalClose}

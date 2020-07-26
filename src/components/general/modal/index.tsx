@@ -1,7 +1,8 @@
-import React, { useEffect, PropsWithChildren } from "react";
+import React, { useEffect, PropsWithChildren, useRef } from "react";
 import $ from "jquery";
 
 interface ModalProps {
+  id: string;
   title: string;
   show: boolean;
   handleClose: () => void;
@@ -11,6 +12,7 @@ interface ModalProps {
 }
 
 export const Modal = ({
+  id,
   title,
   show,
   handleClose,
@@ -19,17 +21,28 @@ export const Modal = ({
   abortText = "Cancel",
   children
 }: PropsWithChildren<ModalProps>) => {
-  const modalId = "modal";
-
-  const close = () => $(`#${modalId}`).modal("hide");
-  const open = () => $(`#${modalId}`).modal("show");
+  const modal = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    show ? open() : close();
-  }, [show]);
+    const action = show ? "show" : "hide";
+    $(`#${id}`).modal(action);
+  }, [id, show]);
 
+  const onBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const { currentTarget, relatedTarget } = event;
+    if (relatedTarget && !currentTarget.contains(relatedTarget as Node)) {
+      handleClose();
+    }
+  };
   return (
-    <div id={modalId} className="modal fade" tabIndex={-1} role="dialog">
+    <div
+      id={id}
+      className="modal fade"
+      ref={modal}
+      tabIndex={-1}
+      onBlur={onBlur}
+      role="dialog"
+    >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
