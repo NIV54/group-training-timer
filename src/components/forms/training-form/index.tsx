@@ -26,6 +26,7 @@ import { buildTrainingInputForStorage } from "./utils/build-training-input-for-s
 import { startTraining } from "../../utils/tarining/start-training";
 import { Modal } from "../../general/modal";
 import { HOME } from "../../app/routes";
+import { noSleep } from "../../../utils/no-sleep";
 
 interface TrainingFormProps {
   timeFormat: string;
@@ -104,6 +105,11 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
     } else {
       setIsModalErrorVisible(true);
     }
+  };
+
+  const onStartClick = () => {
+    noSleep.enable();
+    setActionType("start");
   };
 
   return (
@@ -208,7 +214,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
             <button
               type="submit"
               className="confirmation-button"
-              onClick={() => setActionType("start")}
+              onClick={onStartClick}
             >
               Start
             </button>

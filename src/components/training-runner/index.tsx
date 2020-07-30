@@ -10,6 +10,7 @@ import "./training-runner.scss";
 import { Button } from "../utils/ui/render-buttons/button.type";
 import { renderButtons } from "../utils/ui/render-buttons/render-buttons";
 import { useTimeout } from "../../hooks/use-timeout";
+import { noSleep } from "../../utils/no-sleep";
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {
@@ -32,7 +33,10 @@ export const TrainingRunner = () => {
   useEffect(() => {
     if (timesIndex < times.length) {
       setTime(times[timesIndex]);
+    } else {
+      noSleep.disable();
     }
+
     toggle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timesIndex]);
