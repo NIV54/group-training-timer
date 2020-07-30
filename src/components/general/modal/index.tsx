@@ -1,5 +1,6 @@
 import React, { useEffect, PropsWithChildren, useRef } from "react";
 import $ from "jquery";
+import { onActualBlur } from "../../utils/ui/on-actual-blur";
 
 interface ModalProps {
   id: string;
@@ -28,19 +29,13 @@ export const Modal = ({
     $(`#${id}`).modal(action);
   }, [id, show]);
 
-  const onBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    const { currentTarget, relatedTarget } = event;
-    if (relatedTarget && !currentTarget.contains(relatedTarget as Node)) {
-      handleClose();
-    }
-  };
   return (
     <div
       id={id}
       className="modal fade"
       ref={modal}
       tabIndex={-1}
-      onBlur={onBlur}
+      onBlur={onActualBlur(handleClose)}
       role="dialog"
     >
       <div className="modal-dialog modal-dialog-centered">
