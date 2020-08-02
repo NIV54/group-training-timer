@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { State } from "../../store";
-import { ROUNDS, Round } from "../../store/training/types";
-import { buildTimesArray } from "./utils/build-times-array";
 import { useTimer } from "react-compound-timer";
+
+import { ROUNDS, Round } from "../../store/training/types";
+import { State } from "../../store";
 import { formatTimeUnit } from "../utils/timer/format-time-unit";
 import { useAudio } from "../../hooks/use-audio";
 import "./training-runner.scss";
@@ -11,6 +11,10 @@ import { Button } from "../utils/ui/render-buttons/button.type";
 import { renderButtons } from "../utils/ui/render-buttons/render-buttons";
 import { useTimeout } from "../../hooks/use-timeout";
 import { noSleep } from "../../utils/no-sleep";
+
+import { buildTimesArray } from "./utils/build-times-array";
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ringBell = require("../../assets/audio/ring-bell.mp3");
 
 export const TrainingRunner = () => {

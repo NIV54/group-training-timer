@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { SavedTraining } from "../forms/training-form/types";
 import { State } from "../../store";
 import { SAVED_TRAININGS } from "../../store/training/slice";
 import { buildTrainingInputFromStorage } from "../forms/training-form/utils/build-training-input-from-storage";
 import { startTraining } from "../utils/tarining/start-training";
-import { useHistory } from "react-router-dom";
 
 import "./saved-trainings.scss";
 

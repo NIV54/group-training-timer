@@ -1,7 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
+import { LocalStorage } from "../utils/storage/local-storage";
+
 import { trainingReducer } from "./training/slice";
 import * as subscriberMakers from "./subscriber-makers";
-import { LocalStorage } from "../utils/storage/local-storage";
 
 const rootReducer = combineReducers({
   training: trainingReducer

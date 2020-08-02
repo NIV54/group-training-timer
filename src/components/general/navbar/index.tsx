@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+
 import { NEW_TRAINING, HOME } from "../../app/routes";
 
 type NavItem = typeof NEW_TRAINING | typeof HOME;

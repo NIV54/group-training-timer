@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Training, ROUNDS, COUNTDOWN } from "./types";
+
 import { SavedTraining } from "../../components/forms/training-form/types";
 import { LocalStorage } from "../../utils/storage/local-storage";
+
+import { Training, ROUNDS, COUNTDOWN } from "./types";
 
 const storage = new LocalStorage<SavedTraining[]>();
 

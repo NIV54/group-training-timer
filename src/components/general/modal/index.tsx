@@ -1,5 +1,6 @@
 import React, { useEffect, PropsWithChildren, useRef } from "react";
 import $ from "jquery";
+
 import { onActualBlur } from "../../utils/ui/on-actual-blur";
 
 interface ModalProps {

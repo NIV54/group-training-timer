@@ -2,9 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { TimePicker } from "antd";
+import { useHistory } from "react-router-dom";
 
 import { addTrainingInput } from "../../../store/training/slice";
-import { useHistory } from "react-router-dom";
+import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
+import { Button } from "../../utils/ui/render-buttons/button.type";
+import { validationResolver } from "../utils/validation-resolver";
+import { startTraining } from "../../utils/tarining/start-training";
+import { Modal } from "../../general/modal";
+import { HOME } from "../../app/routes";
+import { noSleep } from "../../../utils/no-sleep";
+
+import { buildTrainingInputForStorage } from "./utils/build-training-input-for-storage";
 import {
   breakTimeInputName,
   workTimeInputName,
@@ -15,18 +24,10 @@ import {
   roundsInputName,
   trainingNameModalErrorMessage
 } from "./constants";
-import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
-import { Button } from "../../utils/ui/render-buttons/button.type";
 import { TrainingFormInput, ValidationError } from "./types";
-import { validationResolver } from "../utils/validation-resolver";
 
 import "antd/dist/antd.css";
 import "./training-form.scss";
-import { buildTrainingInputForStorage } from "./utils/build-training-input-for-storage";
-import { startTraining } from "../../utils/tarining/start-training";
-import { Modal } from "../../general/modal";
-import { HOME } from "../../app/routes";
-import { noSleep } from "../../../utils/no-sleep";
 
 interface TrainingFormProps {
   timeFormat: string;

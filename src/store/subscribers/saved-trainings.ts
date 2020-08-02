@@ -1,8 +1,9 @@
 import watch from "redux-watch";
+import { EnhancedStore } from "@reduxjs/toolkit";
+
 import { trainingStateName, SAVED_TRAININGS } from "../training/slice";
 import { SavedTraining } from "../../components/forms/training-form/types";
 import { Storage } from "../../utils/storage/storage.type";
-import { EnhancedStore } from "@reduxjs/toolkit";
 
 export default (store: EnhancedStore, storage: Storage<SavedTraining[]>) => {
   const makeSavedTrainingsSubscriber = watch(

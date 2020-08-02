@@ -1,4 +1,5 @@
 import { Resolver } from "react-hook-form";
+
 import { TrainingFormInput } from "../training-form/types";
 import { fieldArrayName } from "../training-form/constants";
 
@@ -21,7 +22,7 @@ export const validationResolver: (
     errors: noError
       ? {}
       : ({
-          errorMessage
-        } as any)
+        errorMessage
+      } as any)
   };
 };

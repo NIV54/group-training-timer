@@ -1,13 +1,15 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
 import { store } from "../../store";
 import { TrainingRunner } from "../training-runner";
 import { TrainingForm } from "../forms/training-form";
-import { TRAINING_ROUTE, NEW_TRAINING, COUNTDOWN_ROUTE, HOME } from "./routes";
 import { Countdown } from "../countdown";
 import { SavedTrainings } from "../saved-trainings";
 import { Navbar } from "../general/navbar";
+
+import { TRAINING_ROUTE, NEW_TRAINING, COUNTDOWN_ROUTE, HOME } from "./routes";
 
 const App = () => (
   <Provider store={store}>

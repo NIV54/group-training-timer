@@ -1,10 +1,11 @@
 import React from "react";
 import { useTimer } from "react-compound-timer/build";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { useTimeout } from "../../hooks/use-timeout";
 import { formatTimeUnit } from "../utils/timer/format-time-unit";
-import { useSelector } from "react-redux";
 import { State } from "../../store";
-import { useHistory } from "react-router-dom";
 import { TRAINING_ROUTE } from "../app/routes";
 import { COUNTDOWN } from "../../store/training/types";
 
