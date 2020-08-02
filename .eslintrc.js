@@ -24,7 +24,7 @@ module.exports = {
     semi: ["error", "always"],
     "comma-dangle": ["error", "never"],
 
-    indent: ["error", "tab"],
+    indent: ["error", 2, { SwitchCase: 1 }],
     "linebreak-style": ["error", "windows"],
 
     "import/order": ["error", { "newlines-between": "always" }],
@@ -39,6 +39,9 @@ module.exports = {
   settings: {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    react: {
+      version: "detect"
     }
   }
 };
