@@ -40,6 +40,6 @@ const trainingSlice = createSlice({
 
 export const {
   reducer: trainingReducer,
-  actions: { setCurrentTraining, addTrainingInput },
+  actions: { setCurrentTraining, addTrainingInput, setTrainingInput },
   name: trainingStateName
 } = trainingSlice;
