@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TimePicker } from "antd";
 import { useHistory } from "react-router-dom";
 
@@ -12,6 +12,7 @@ import { startTraining } from "../../utils/tarining/start-training";
 import { Modal } from "../../general/modal";
 import { HOME } from "../../app/routes";
 import { noSleep } from "../../../utils/no-sleep";
+import { State } from "../../../store";
 
 import { buildTrainingInputForStorage } from "./utils/build-training-input-for-storage";
 import {
@@ -37,6 +38,10 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const trainingInput = useSelector<State, TrainingFormInput>(
+    state => state.training.trainingInput
+  );
+
   const {
     handleSubmit,
     control,
@@ -45,7 +50,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
     getValues: getFormValues
   } = useForm<TrainingFormInput>({
     reValidateMode: "onSubmit",
-    resolver: validationResolver(mainFormErrorMessage)
+    resolver: validationResolver(mainFormErrorMessage),
+    defaultValues: trainingInput
   });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -180,6 +186,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   type="number"
                   ref={register()}
                   defaultValue={1}
+                  // TODO: disable autofocus for this input
                 />
               </div>
             </div>

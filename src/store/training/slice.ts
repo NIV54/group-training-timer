@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { SavedTraining } from "../../components/forms/training-form/types";
+import {
+  SavedTraining,
+  TrainingFormInput
+} from "../../components/forms/training-form/types";
 import { LocalStorage } from "../../utils/storage/local-storage";
 
 import { Training, ROUNDS, COUNTDOWN } from "./types";
@@ -15,7 +18,8 @@ const trainingSlice = createSlice({
     currentTraining: {
       [ROUNDS]: [{ workTime: 0, breakTime: 0 }],
       [COUNTDOWN]: 0
-    } as Training
+    } as Training,
+    trainingInput: {} as TrainingFormInput
   },
   name: "training",
   reducers: {
@@ -26,6 +30,10 @@ const trainingSlice = createSlice({
     addTrainingInput: (state, action: PayloadAction<SavedTraining>) => ({
       ...state,
       savedTrainings: [...state[SAVED_TRAININGS], action.payload]
+    }),
+    setTrainingInput: (state, action: PayloadAction<TrainingFormInput>) => ({
+      ...state,
+      trainingInput: action.payload
     })
   }
 });
