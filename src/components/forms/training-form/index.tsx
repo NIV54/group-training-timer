@@ -3,6 +3,7 @@ import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { TimePicker } from "antd";
 import { useHistory } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 import { addTrainingInput } from "../../../store/training/slice";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
@@ -61,7 +62,9 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const appendInput = () => append({});
   const removeInput = () => fields.length > 0 && remove(fields.length - 1);
 
-  useEffect(appendInput, [append]);
+  useEffect(() => {
+    isEmpty(trainingInput) && appendInput();
+  }, []);
 
   const [actionType, setActionType] = useState<"start" | "save">("save");
 
@@ -75,6 +78,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
 
   const onSave = () => {
     setShowSaveModal(false);
+    // TODO: override saved training if name fits
+    // maybe set training name if we got here from my training page
     setShowSaveModal(true);
   };
 
@@ -185,7 +190,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   className="form-control"
                   type="number"
                   ref={register()}
-                  defaultValue={1}
+                  defaultValue={field.rounds || 1}
                   // TODO: disable autofocus for this input
                 />
               </div>

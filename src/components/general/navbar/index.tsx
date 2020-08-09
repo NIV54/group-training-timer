@@ -13,6 +13,8 @@ export const Navbar = () => {
     setActiveNavItem(location.pathname as NavItem);
   }, [location.pathname]);
 
+  // TODO: add useEffect hook here to disable noSleep if user moved to another tab while training (or in general - it's good enough)
+
   const isActive = (navItem: NavItem) => navItem === activeNavItem;
 
   return (
