@@ -156,13 +156,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
               <div className="form-group col-4">
                 <label htmlFor={workTimeInputName}>Work Time</label>
                 <Controller
-                  as={
-                    <TimePicker
-                      defaultValue={defaultTimeValue()}
-                      format={timeFormat}
-                      inputReadOnly={true}
-                    />
-                  }
+                  as={<TimePicker format={timeFormat} inputReadOnly={true} />}
+                  defaultValue={field[workTimeInputName] || defaultTimeValue()}
                   control={control}
                   name={`${fieldArrayName}[${index}].${workTimeInputName}`}
                   className="form-control"
@@ -171,13 +166,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
               <div className="form-group col-4">
                 <label htmlFor={breakTimeInputName}>Break Time</label>
                 <Controller
-                  as={
-                    <TimePicker
-                      defaultValue={defaultTimeValue()}
-                      format={timeFormat}
-                      inputReadOnly={true}
-                    />
-                  }
+                  as={<TimePicker format={timeFormat} inputReadOnly={true} />}
+                  defaultValue={field[breakTimeInputName] || defaultTimeValue()}
                   control={control}
                   name={`${fieldArrayName}[${index}].${breakTimeInputName}`}
                   className="form-control"
@@ -190,7 +180,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   className="form-control"
                   type="number"
                   ref={register()}
-                  defaultValue={field.rounds || 1}
+                  defaultValue={field[roundsInputName] || 1}
                   // TODO: disable autofocus for this input
                 />
               </div>
