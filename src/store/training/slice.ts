@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { v4 } from "uuid";
 
 import {
   SavedTraining,
@@ -28,15 +27,9 @@ const trainingSlice = createSlice({
       ...state,
       currentTraining: action.payload
     }),
-    addSavedTraining: (
-      state,
-      action: PayloadAction<Omit<SavedTraining, "id">>
-    ) => ({
+    addSavedTraining: (state, action: PayloadAction<SavedTraining>) => ({
       ...state,
-      savedTrainings: [
-        ...state[SAVED_TRAININGS],
-        { ...action.payload, id: v4() }
-      ]
+      savedTrainings: [...state[SAVED_TRAININGS], action.payload]
     }),
     removeSavedTraining: (state, action: PayloadAction<string>) => ({
       ...state,
