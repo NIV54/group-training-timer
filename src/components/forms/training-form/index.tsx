@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { isEmpty } from "lodash";
 
 import {
-  addTrainingInput,
+  addSavedTraining,
   setTrainingInput
 } from "../../../store/training/slice";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
@@ -119,7 +119,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
     if (trainingName !== "") {
       const formValues = getFormValues() as TrainingFormInput;
       dispatch(
-        addTrainingInput(buildTrainingInputForStorage(trainingName, formValues))
+        addSavedTraining(buildTrainingInputForStorage(trainingName, formValues))
       );
       setShowSaveModal(false);
       setTimeout(() => history.replace(HOME), 0); // wait for fade

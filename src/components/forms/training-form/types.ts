@@ -9,6 +9,7 @@ import {
 } from "./constants";
 
 export interface SavedTraining {
+  id: string;
   name: string;
   [countdownInputName]: number;
   training: Partial<

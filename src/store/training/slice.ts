@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { v4 } from "uuid";
 
 import {
   SavedTraining,
@@ -14,7 +15,7 @@ export const SAVED_TRAININGS = "savedTrainings";
 
 const trainingSlice = createSlice({
   initialState: {
-    [SAVED_TRAININGS]: storage.get(SAVED_TRAININGS) || [],
+    [SAVED_TRAININGS]: storage.get(SAVED_TRAININGS) || ([] as SavedTraining[]),
     currentTraining: {
       [ROUNDS]: [{ workTime: 0, breakTime: 0 }],
       [COUNTDOWN]: 0
@@ -27,9 +28,21 @@ const trainingSlice = createSlice({
       ...state,
       currentTraining: action.payload
     }),
-    addTrainingInput: (state, action: PayloadAction<SavedTraining>) => ({
+    addSavedTraining: (
+      state,
+      action: PayloadAction<Omit<SavedTraining, "id">>
+    ) => ({
       ...state,
-      savedTrainings: [...state[SAVED_TRAININGS], action.payload]
+      savedTrainings: [
+        ...state[SAVED_TRAININGS],
+        { ...action.payload, id: v4() }
+      ]
+    }),
+    removeSavedTraining: (state, action: PayloadAction<string>) => ({
+      ...state,
+      savedTrainings: [
+        ...state[SAVED_TRAININGS].filter(({ id }) => id !== action.payload)
+      ]
     }),
     setTrainingInput: (
       state,
@@ -43,6 +56,11 @@ const trainingSlice = createSlice({
 
 export const {
   reducer: trainingReducer,
-  actions: { setCurrentTraining, addTrainingInput, setTrainingInput },
+  actions: {
+    setCurrentTraining,
+    addSavedTraining,
+    removeSavedTraining,
+    setTrainingInput
+  },
   name: trainingStateName
 } = trainingSlice;
