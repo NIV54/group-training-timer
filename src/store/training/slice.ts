@@ -19,7 +19,7 @@ const trainingSlice = createSlice({
       [ROUNDS]: [{ workTime: 0, breakTime: 0 }],
       [COUNTDOWN]: 0
     } as Training,
-    trainingInput: {} as TrainingFormInput
+    trainingInput: {} as Partial<TrainingFormInput>
   },
   name: "training",
   reducers: {
@@ -31,7 +31,10 @@ const trainingSlice = createSlice({
       ...state,
       savedTrainings: [...state[SAVED_TRAININGS], action.payload]
     }),
-    setTrainingInput: (state, action: PayloadAction<TrainingFormInput>) => ({
+    setTrainingInput: (
+      state,
+      action: PayloadAction<Partial<TrainingFormInput>>
+    ) => ({
       ...state,
       trainingInput: action.payload
     })

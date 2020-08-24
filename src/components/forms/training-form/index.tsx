@@ -5,7 +5,10 @@ import { TimePicker } from "antd";
 import { useHistory } from "react-router-dom";
 import { isEmpty } from "lodash";
 
-import { addTrainingInput } from "../../../store/training/slice";
+import {
+  addTrainingInput,
+  setTrainingInput
+} from "../../../store/training/slice";
 import { renderButtons } from "../../utils/ui/render-buttons/render-buttons";
 import { Button } from "../../utils/ui/render-buttons/button.type";
 import { validationResolver } from "../utils/validation-resolver";
@@ -39,7 +42,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const trainingInput = useSelector<State, TrainingFormInput>(
+  const trainingInput = useSelector<State, Partial<TrainingFormInput>>(
     state => state.training.trainingInput
   );
 
@@ -64,6 +67,12 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
 
   useEffect(() => {
     isEmpty(trainingInput) && appendInput();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setTrainingInput({}));
+    };
   }, []);
 
   const [actionType, setActionType] = useState<"start" | "save">("save");
