@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { TimePicker } from "antd";
@@ -46,6 +46,8 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
     state => state.training.trainingInput
   );
 
+  const roundsInputRef = useRef<HTMLInputElement>();
+
   const {
     handleSubmit,
     control,
@@ -66,14 +68,19 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   const removeInput = () => fields.length > 0 && remove(fields.length - 1);
 
   useEffect(() => {
+    roundsInputRef.current?.blur();
+  });
+
+  useEffect(() => {
     isEmpty(trainingInput) && appendInput();
   }, []);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(setTrainingInput({}));
-    };
-  }, []);
+    },
+    []
+  );
 
   const [actionType, setActionType] = useState<"start" | "save">("save");
 
@@ -187,9 +194,11 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
                   name={`${fieldArrayName}[${index}].${roundsInputName}`}
                   className="form-control"
                   type="number"
-                  ref={register()}
+                  ref={e => {
+                    register(e);
+                    roundsInputRef.current = e as HTMLInputElement;
+                  }}
                   defaultValue={field[roundsInputName] || 1}
-                  // TODO: disable autofocus for this input
                 />
               </div>
             </div>
