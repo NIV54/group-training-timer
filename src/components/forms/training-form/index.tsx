@@ -86,7 +86,6 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
   };
 
   const onSave = () => {
-    setShowSaveModal(false);
     // TODO: override saved training if name fits
     // maybe set training name if we got here from my training page
     setShowSaveModal(true);
@@ -122,7 +121,7 @@ export const TrainingForm = ({ timeFormat }: TrainingFormProps) => {
         addSavedTraining(buildTrainingInputForStorage(trainingName, formValues))
       );
       setShowSaveModal(false);
-      setTimeout(() => history.replace(HOME), 0); // wait for fade
+      setTimeout(() => history.replace(HOME), 0); // wait for async fade
     } else {
       setIsModalErrorVisible(true);
     }

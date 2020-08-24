@@ -7,8 +7,11 @@ type onBlurEvent = React.FocusEvent<any>;
 export const onActualBlur = (callback: (event: onBlurEvent) => void) => (
   event: onBlurEvent
 ) => {
+  event.persist();
   const { currentTarget, relatedTarget } = event;
-  if (relatedTarget && !currentTarget.contains(relatedTarget as Node)) {
+  if (!relatedTarget) {
+    callback(event);
+  } else if (relatedTarget && !currentTarget.contains(relatedTarget as Node)) {
     callback(event);
   }
 };

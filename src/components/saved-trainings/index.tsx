@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -12,6 +12,7 @@ import {
 import { buildTrainingInputFromStorage } from "../forms/training-form/utils/build-training-input-from-storage";
 import { startTraining } from "../utils/tarining/start-training";
 import { NEW_TRAINING } from "../app/routes";
+import { Modal } from "../general/modal";
 
 import "./saved-trainings.scss";
 
@@ -23,23 +24,49 @@ export const SavedTrainings = () => {
     state => state.training[SAVED_TRAININGS]
   );
 
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const [removedTraining, setRemovedTraining] = useState<SavedTraining | null>(
+    null
+  );
+
+  const handleModalClose = () => {
+    setShowRemoveModal(false);
+  };
+
   const onTrainingClick = (savedTraining: SavedTraining) => {
     const trainingInput = buildTrainingInputFromStorage(savedTraining);
     startTraining(trainingInput, dispatch, history);
   };
 
-  const editTraining = (savedTraining: SavedTraining) => {
+  const onEditTrainingClick = (savedTraining: SavedTraining) => {
     const trainingInput = buildTrainingInputFromStorage(savedTraining);
     dispatch(setTrainingInput(trainingInput));
     history.replace(NEW_TRAINING);
   };
 
-  const removeTraining = (id: string) => {
-    dispatch(removeSavedTraining(id));
+  const onRemoveTrainingClick = (savedTraining: SavedTraining) => {
+    setRemovedTraining(savedTraining);
+    setShowRemoveModal(true);
+  };
+
+  const removeTraining = () => {
+    removedTraining && dispatch(removeSavedTraining(removedTraining.id));
+    setShowRemoveModal(false);
   };
 
   return (
     <div className="container">
+      <Modal
+        id="remove-training-modal"
+        title="Remove Training"
+        show={showRemoveModal}
+        handleClose={handleModalClose}
+        confirmText="Remove"
+        onConfirm={removeTraining}
+      >
+        Are you sure you want to remove training{" "}
+        <strong>{removedTraining?.name}</strong>?
+      </Modal>
       <h1 className="text-center">My Trainings</h1>
       {savedTrainings.length > 0 ? (
         <div className="card mt-3">
@@ -58,7 +85,7 @@ export const SavedTrainings = () => {
                   viewBox="0 0 16 16"
                   className="bi bi-pencil-square edit-icon"
                   fill="currentColor"
-                  onClick={() => editTraining(savedTraining)}
+                  onClick={() => onEditTrainingClick(savedTraining)}
                 >
                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                   <path
@@ -72,7 +99,7 @@ export const SavedTrainings = () => {
                   viewBox="0 0 16 16"
                   className="bi bi-trash"
                   fill="currentColor"
-                  onClick={() => removeTraining(savedTraining.id)}
+                  onClick={() => onRemoveTrainingClick(savedTraining)}
                 >
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                   <path
