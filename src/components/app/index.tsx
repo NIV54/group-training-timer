@@ -1,19 +1,28 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Switch, Route, useLocation } from "react-router-dom";
 
-import { store } from "../../store";
 import { TrainingRunner } from "../training-runner";
 import { TrainingForm } from "../forms/training-form";
 import { Countdown } from "../countdown";
 import { SavedTrainings } from "../saved-trainings";
 import { Navbar } from "../general/navbar";
+import { noSleep } from "../../utils/no-sleep";
 
 import { TRAINING_ROUTE, NEW_TRAINING, COUNTDOWN_ROUTE, HOME } from "./routes";
 
-const App = () => (
-  <Provider store={store}>
-    <BrowserRouter>
+const App = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (
+      location.pathname !== COUNTDOWN_ROUTE &&
+      location.pathname !== TRAINING_ROUTE
+    ) {
+      noSleep.disable();
+    }
+  }, [location]);
+
+  return (
+    <>
       <Navbar />
       <Switch>
         <Route exact path={NEW_TRAINING}>
@@ -25,8 +34,8 @@ const App = () => (
         <Route exact path={TRAINING_ROUTE} component={TrainingRunner} />
         <Route exact path={HOME} component={SavedTrainings} />
       </Switch>
-    </BrowserRouter>
-  </Provider>
-);
+    </>
+  );
+};
 
 export default App;

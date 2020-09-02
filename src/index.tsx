@@ -1,19 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { v4 } from "uuid";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./components/app";
 import * as serviceWorker from "./serviceWorker";
 import { SAVED_TRAININGS } from "./store/training/slice";
 import { SavedTraining } from "./components/forms/training-form/types";
 import { LocalStorage } from "./utils/storage/local-storage";
+import { store } from "./store";
 
 import "./index.scss";
 import "bootstrap/dist/js/bootstrap";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
@@ -29,7 +36,9 @@ try {
     }));
     storage.set(SAVED_TRAININGS, savedTrainingsWithIds);
   }
-} catch {}
+} catch {
+  // eslint-disable-next-line no-empty
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
