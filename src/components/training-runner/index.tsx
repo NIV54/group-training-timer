@@ -15,7 +15,9 @@ import { noSleep } from "../../utils/no-sleep";
 import { buildTimesArray } from "./utils/build-times-array";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ringBell = require("../../assets/audio/ring-bell.mp3");
+const bellRingShort = require("../../assets/audio/bell-ring-short.mp3");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bellRingLong = require("../../assets/audio/bell-ring-long.mp3");
 
 export const TrainingRunner = () => {
   const trainingRounds = useSelector<State, Round[]>(
@@ -32,16 +34,18 @@ export const TrainingRunner = () => {
     direction: "backward",
     initialTime: times[timesIndex]
   });
-  const { toggle } = useAudio(ringBell);
+  const { toggle: shortRingToggle } = useAudio(bellRingShort);
+  const { toggle: longRingToggle } = useAudio(bellRingLong);
   useTimeout(value, () => setTimesIndex(timesIndex => timesIndex + 1));
   useEffect(() => {
     if (timesIndex < times.length) {
       setTime(times[timesIndex]);
+      shortRingToggle();
     } else {
+      longRingToggle();
       noSleep.disable();
     }
 
-    toggle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timesIndex]);
 
