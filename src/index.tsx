@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { v4 } from "uuid";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import DarkMode from "darkmode-js";
 
 import App from "./components/app";
 import * as serviceWorker from "./serviceWorker";
@@ -13,6 +14,10 @@ import { store } from "./store";
 
 import "./index.scss";
 import "bootstrap/dist/js/bootstrap";
+
+new DarkMode({
+  label: "🌓"
+}).showWidget();
 
 ReactDOM.render(
   <React.StrictMode>

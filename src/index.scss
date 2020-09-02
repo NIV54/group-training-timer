@@ -20,3 +20,12 @@ body,
 .margin-side {
   margin: 0 4px;
 }
+
+.darkmode-layer,
+.darkmode-toggle {
+  z-index: 500;
+}
+
+.darkmode-toggle {
+  user-select: none;
+}
