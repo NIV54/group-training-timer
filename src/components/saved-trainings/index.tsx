@@ -13,6 +13,7 @@ import { buildTrainingInputFromStorage } from "../forms/training-form/utils/buil
 import { startTraining } from "../utils/tarining/start-training";
 import { NEW_TRAINING } from "../app/routes";
 import { Modal } from "../general/modal";
+import { noSleep } from "../../utils/no-sleep";
 
 import "./saved-trainings.scss";
 
@@ -36,6 +37,7 @@ export const SavedTrainings = () => {
   const onTrainingClick = (savedTraining: SavedTraining) => {
     const trainingInput = buildTrainingInputFromStorage(savedTraining);
     startTraining(trainingInput, dispatch, history);
+    noSleep.enable();
   };
 
   const onEditTrainingClick = (savedTraining: SavedTraining) => {
@@ -74,7 +76,7 @@ export const SavedTrainings = () => {
             {savedTrainings.map((savedTraining, index) => (
               <div key={index} className="d-flex list-group-item training">
                 <p
-                  className="training-name"
+                  className="training-name mb-0"
                   onClick={() => onTrainingClick(savedTraining)}
                 >
                   {savedTraining.name}
