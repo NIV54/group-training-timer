@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
-    "antd": "^4.7.3",
+    "antd": "^4.9.4",
     "bootstrap": "^4.5.3",
     "bootstrap-icons": "^1.1.0",
     "jquery": "^3.5.1",
